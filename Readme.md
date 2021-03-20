@@ -1,4 +1,4 @@
-#Electronics Warehouse Solution
+# Electronics Warehouse Solution
 
 This is entire C# solution, containing several projects.
 
