@@ -3,14 +3,16 @@ using Console_Manager.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Console_Manager.Migrations
 {
     [DbContext(typeof(ElectronicsWarehouseContext))]
-    partial class ElectronicsWarehouseContextModelSnapshot : ModelSnapshot
+    [Migration("20210320225019_RemoveCollumn_AlaBala")]
+    partial class RemoveCollumn_AlaBala
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web Manager", "Web Manager\Web Manager.csproj", "{A08936B2-5045-4182-B22D-C993D77FA759}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{897DE23A-4D3A-4B85-A4C0-2D6711D4BF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897DE23A-4D3A-4B85-A4C0-2D6711D4BF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897DE23A-4D3A-4B85-A4C0-2D6711D4BF1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A08936B2-5045-4182-B22D-C993D77FA759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A08936B2-5045-4182-B22D-C993D77FA759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A08936B2-5045-4182-B22D-C993D77FA759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A08936B2-5045-4182-B22D-C993D77FA759}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

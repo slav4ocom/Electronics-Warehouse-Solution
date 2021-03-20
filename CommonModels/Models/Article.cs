@@ -12,6 +12,5 @@ namespace Console_Manager.Models
         public string PartType { get; set; }
         public string PictureName { get; set; }
 
-        public string AlaBala { get; set; }
     }
 }
