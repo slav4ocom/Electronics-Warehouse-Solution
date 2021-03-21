@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Console_Manager.Models;
+using CommonModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Console_Manager

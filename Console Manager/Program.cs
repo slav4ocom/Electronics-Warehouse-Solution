@@ -1,4 +1,4 @@
-﻿using Console_Manager.Models;
+﻿using CommonModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 
