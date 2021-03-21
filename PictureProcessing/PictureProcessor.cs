@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 
-namespace DB_Test_1
+namespace PictureProcessing
 {
     public class PictureProcessor
     {
@@ -15,6 +15,8 @@ namespace DB_Test_1
         {
 
         }
+
+        public static string picturePath { get; set; }
 
         public void Download()
         {

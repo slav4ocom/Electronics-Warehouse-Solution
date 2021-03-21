@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Console_Manager.Models
+namespace CommonModels
 {
     public class Article
     {

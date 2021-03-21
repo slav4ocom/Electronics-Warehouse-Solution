@@ -3,12 +3,11 @@
     var myContext = new CommonModels.ElectronicsWarehouseContext();
 
     var partsList = myContext.Articles;
-    //var partsList = myContext.Articles.ToList();
 }
 
 
 <h2>List of articles in warehouse:</h2>
-<h3>@Lib.PictureProcessor.picturePath</h3>
+<h3>@PictureProcessing.PictureProcessor.picturePath</h3>
 
 <div>
     @{
@@ -27,14 +26,14 @@
                 {
                     <div ondblclick="GetRow(@part.Id)" class="col-md-3">
 
-                        <img src="@Lib.PictureProcessor.picturePath/pics/@part.Picture" />
+                        <img src="@PictureProcessing.PictureProcessor.picturePath/pics/@part.PictureName" />
                         <br />
                         @part.Id @part.Name @part.Price лв.
                     </div>
 
                 }
                 <div class="col-md-3">
-                    <img src="@Lib.PictureProcessor.picturePath/pics/new.jpg" onclick="window.open('AddArticle')">
+                    <img src="@PictureProcessing.PictureProcessor.picturePath/pics/new.jpg" onclick="window.open('AddArticle')">
                 </div>
             </div>
         }
