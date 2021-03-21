@@ -5,4 +5,8 @@
     <RootNamespace>Web_Manager</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CommonModels\CommonModels.csproj" />
+  </ItemGroup>
+
 </Project>

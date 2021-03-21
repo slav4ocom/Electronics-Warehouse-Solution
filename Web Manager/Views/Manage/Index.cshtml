@@ -1,8 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+
+    var myContext = new CommonModels.ElectronicsWarehouseContext();
+
+    var partsList = myContext.Articles;
+    //var partsList = myContext.Articles.ToList();
 }
 
 
-List of articles in warehouse:
+<h2>List of articles in warehouse:</h2>
+<h3>@Lib.PictureProcessor.picturePath</h3>
+
+<div>
+    @{
+
+
+
+        <a class="btn" href="~/84380.png"><img src="~/editico.png" /></a><a class="btn" href="~/delete-xxl.png"><img src="~/trash.png" /></a>
+
+
+
+        {
+
+
+            <div class="row">
+                @foreach (var part in partsList)
+                {
+                    <div ondblclick="GetRow(@part.Id)" class="col-md-3">
+
+                        <img src="@Lib.PictureProcessor.picturePath/pics/@part.Picture" />
+                        <br />
+                        @part.Id @part.Name @part.Price лв.
+                    </div>
+
+                }
+                <div class="col-md-3">
+                    <img src="@Lib.PictureProcessor.picturePath/pics/new.jpg" onclick="window.open('AddArticle')">
+                </div>
+            </div>
+        }
+
+        <p id="partnum">selected row</p>
+        <script>
+            function GetRow(partId) {
+                document.getElementById("partnum").innerHTML = "Ред " + partId;
+                window.open("Edit?id=" + partId);
+            }
+        </script>
+
+    }
+</div>
