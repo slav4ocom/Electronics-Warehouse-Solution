@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonModels\CommonModels.csproj" />
+    <ProjectReference Include="..\PictureProcessing\PictureProcessing.csproj" />
   </ItemGroup>
 
 </Project>

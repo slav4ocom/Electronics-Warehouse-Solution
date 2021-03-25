@@ -16,16 +16,18 @@ namespace PictureProcessing
 
         }
 
-        public static string picturePath { get; set; }
+        public static string picturePath { get; set; } = @"..\..\..\..\pictures";
 
         public void Download()
         {
             Console.WriteLine("Enter filename");
             var href = Console.ReadLine();
             var filename = href.Split("/").ToList().Last();
-            new WebClient().DownloadFile(href, @$"C:\inetpub\Warehouse2\wwwroot\pics\{filename}");
+            //new WebClient().DownloadFile(href, @$"C:\inetpub\Warehouse2\wwwroot\pics\{filename}");
+            new WebClient().DownloadFile(href, @$"{picturePath}{filename}");
 
-            Resize(@$"C:\inetpub\Warehouse2\wwwroot\pics\{filename}");
+            //Resize(@$"C:\inetpub\Warehouse2\wwwroot\pics\{filename}");
+            Resize(@$"{picturePath}{filename}");
         }
 
         private void Resize(string inputPath)
@@ -62,9 +64,9 @@ namespace PictureProcessing
                         .Split(".")
                         .First();
 
-                    using (var output = File.Open(@$"C:\inetpub\Warehouse2\wwwroot\pics\{filename}_small.jpg"
+                    //using (var output = File.Open(@$"C:\inetpub\Warehouse2\wwwroot\pics\{filename}_small.jpg"
+                    using (var output = File.Open(@$"{picturePath}{filename}_small.jpg"
                         , FileMode.Create))
-                    //OutputPath(path, outputDirectory, SystemDrawing), FileMode.Create))
                     {
                         var qualityParamId = Encoder.Quality;
                         var encoderParameters = new EncoderParameters(1);
@@ -76,6 +78,20 @@ namespace PictureProcessing
                         resized.Save(output, System.Drawing.Imaging.ImageFormat.Jpeg);
                     }
                 }
+            }
+        }
+
+        public static string GetSmallName(string name)
+        {
+            if (name != null)
+            {
+                var nameParts = name.Split(".");
+                return $"{nameParts[0]}_small.{nameParts[1]}";
+
+            }
+            else
+            {
+                return "";
             }
         }
     }

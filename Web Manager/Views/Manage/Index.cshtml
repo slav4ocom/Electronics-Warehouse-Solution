@@ -3,6 +3,8 @@
     var myContext = new CommonModels.ElectronicsWarehouseContext();
 
     var partsList = myContext.Articles;
+
+
 }
 
 
@@ -12,11 +14,7 @@
 <div>
     @{
 
-
-
         <a class="btn" href="~/84380.png"><img src="~/editico.png" /></a><a class="btn" href="~/delete-xxl.png"><img src="~/trash.png" /></a>
-
-
 
         {
 
@@ -24,9 +22,12 @@
             <div class="row">
                 @foreach (var part in partsList)
                 {
+
                     <div ondblclick="GetRow(@part.Id)" class="col-md-3">
 
-                        <img src="@PictureProcessing.PictureProcessor.picturePath/pics/@part.PictureName" />
+                        <img src="@PictureProcessing.PictureProcessor.picturePath/@PictureProcessing.PictureProcessor.GetSmallName(part.PictureName)" />
+                        <br />
+                        @part.PictureName
                         <br />
                         @part.Id @part.Name @part.Price лв.
                     </div>

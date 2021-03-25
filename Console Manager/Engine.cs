@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonModels;
 using Microsoft.EntityFrameworkCore;
+using PictureProcessing;
 
 namespace Console_Manager
 {
@@ -66,6 +67,9 @@ namespace Console_Manager
                     Commands.Help();
                     break;
 
+                case "download":
+                    new PictureProcessor().Download();
+                    break;
                 default:
                     Console.WriteLine("Invalid command");
                     break;
