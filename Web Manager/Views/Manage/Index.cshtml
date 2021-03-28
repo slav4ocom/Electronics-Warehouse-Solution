@@ -34,7 +34,7 @@
 
                 }
                 <div class="col-md-3">
-                    <img src="@PictureProcessing.PictureProcessor.picturePath/pics/new.jpg" onclick="window.open('AddArticle')">
+                    <img src="@PictureProcessing.PictureProcessor.picturePath/new.jpg" onclick="window.open('/Manage/AddArticle')">
                 </div>
             </div>
         }
@@ -43,7 +43,7 @@
         <script>
             function GetRow(partId) {
                 document.getElementById("partnum").innerHTML = "Ред " + partId;
-                window.open("Edit?id=" + partId);
+                window.open("Manage/Edit?id=" + partId);
             }
         </script>
 

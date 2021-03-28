@@ -1,5 +1,6 @@
 ﻿using CommonModels;
 using Microsoft.EntityFrameworkCore;
+using PictureProcessing;
 using System;
 
 namespace Console_Manager
@@ -8,8 +9,8 @@ namespace Console_Manager
     {
         static void Main(string[] args)
         {
+            PictureProcessor.picturePath = PictureProcessor.picturePathConsole;
             Engine.Run();
-            
         }
     }
 }

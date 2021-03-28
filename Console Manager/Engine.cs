@@ -68,7 +68,9 @@ namespace Console_Manager
                     break;
 
                 case "download":
-                    new PictureProcessor().Download();
+                    Console.WriteLine("Enter URL:");
+                    var url = Console.ReadLine();
+                    new PictureProcessor().Download(url);
                     break;
                 default:
                     Console.WriteLine("Invalid command");
