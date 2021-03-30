@@ -16,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web Manager", "Web Manager\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PictureProcessing", "PictureProcessing\PictureProcessing.csproj", "{A15AC88B-04D5-42A1-ABD0-56C33095ED27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web Manager v.2", "Web Manager v.2\Web Manager v.2.csproj", "{45CE620D-2C87-41BE-80F3-C49197866405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web Manager v.2", "Web Manager v.2\Web Manager v.2.csproj", "{B64E9080-B988-41EB-B3F6-08FC9796AB26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{A15AC88B-04D5-42A1-ABD0-56C33095ED27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A15AC88B-04D5-42A1-ABD0-56C33095ED27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A15AC88B-04D5-42A1-ABD0-56C33095ED27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45CE620D-2C87-41BE-80F3-C49197866405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45CE620D-2C87-41BE-80F3-C49197866405}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45CE620D-2C87-41BE-80F3-C49197866405}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45CE620D-2C87-41BE-80F3-C49197866405}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B64E9080-B988-41EB-B3F6-08FC9796AB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B64E9080-B988-41EB-B3F6-08FC9796AB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B64E9080-B988-41EB-B3F6-08FC9796AB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B64E9080-B988-41EB-B3F6-08FC9796AB26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
