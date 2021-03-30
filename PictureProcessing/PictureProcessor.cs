@@ -18,16 +18,17 @@ namespace PictureProcessing
 
         public static readonly string picturePathWeb = @"..\pictures\";
         public static readonly string picturePathConsole = @"..\..\..\..\pictures\";
-        public static string picturePath { get; set; } = picturePathWeb;
+        public static readonly string pictureAbsolutePath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/pictures/";
+        //public static string picturePath { get; set; } = picturePathWeb;
 
         public void Download(string href)
         {
             var filename = href.Split("/").ToList().Last();
             using (var client = new WebClient())
             {
-                client.DownloadFile(href, @$"{picturePath}{filename}");
+                client.DownloadFile(href, @$"{pictureAbsolutePath}{filename}");
             };
-            Resize(@$"{picturePath}{filename}");
+            Resize(@$"{pictureAbsolutePath}{filename}");
 
         }
         
@@ -67,7 +68,7 @@ namespace PictureProcessing
                             .Split(".")
                             .First();
 
-                        using (var output = File.Open(@$"{picturePath}{filename}_small.jpg"
+                        using (var output = File.Open(@$"{pictureAbsolutePath}{filename}_small.jpg"
                             , FileMode.Create))
                         {
                             var qualityParamId = Encoder.Quality;
@@ -104,8 +105,8 @@ namespace PictureProcessing
 
         public static void DeletePicture(string filename)
         {
-            File.Delete($"{picturePath}{filename}");
-            File.Delete($"{picturePath}{GetSmallName(filename)}");
+            File.Delete($"{pictureAbsolutePath}{filename}");
+            File.Delete($"{pictureAbsolutePath}{GetSmallName(filename)}");
         }
     }
 }

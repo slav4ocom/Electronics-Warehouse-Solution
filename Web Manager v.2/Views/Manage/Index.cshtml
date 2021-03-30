@@ -9,40 +9,36 @@
 
 
 <h2>List of articles in warehouse:</h2>
-<h3>@PictureProcessing.PictureProcessor.picturePath</h3>
+
 
 <div>
     @{
 
-        <a class="btn" href="~/84380.png"><img src="~/editico.png" /></a><a class="btn" href="~/delete-xxl.png"><img src="~/trash.png" /></a>
-
         {
 
-
-            <div class="row">
-                @foreach (var part in partsList)
+        <div class="row">
+            @foreach (var part in partsList)
                 {
 
-                    <div ondblclick="GetRow(@part.Id)" class="col-md-3">
+            <div ondblclick="GetRow(@part.Id)" class="col-md-3">
 
-                        <img src="@PictureProcessing.PictureProcessor.picturePath/@PictureProcessing.PictureProcessor.GetSmallName(part.PictureName)" />
-                        <br />
-                        @part.PictureName
-                        <br />
-                        @part.Id @part.Name @part.Price лв.
-                    </div>
+                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/@PictureProcessing.PictureProcessor.GetSmallName(part.PictureName)" />
+                <br />
+                @part.PictureName
+                <br />
+                @part.Id @part.Name @part.Price лв.
+            </div>
 
                 }
-                <div class="col-md-3">
-                    <img src="@PictureProcessing.PictureProcessor.picturePath/new.jpg" onclick="window.open('/Manage/AddArticle')">
-                </div>
+            <div class="col-md-3">
+                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/new.jpg" onclick="window.open('/Manage/AddArticle')">
             </div>
+        </div>
         }
 
-        <p id="partnum">selected row</p>
         <script>
             function GetRow(partId) {
-                document.getElementById("partnum").innerHTML = "Ред " + partId;
+                //document.getElementById("partnum").innerHTML = "Ред " + partId;
                 window.open("Manage/Edit?id=" + partId);
             }
         </script>

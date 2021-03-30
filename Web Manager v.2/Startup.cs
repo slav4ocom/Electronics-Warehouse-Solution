@@ -87,21 +87,36 @@ namespace Web_Manager_v._2
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                /*app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, @"..\pictures")),
+                    RequestPath = "/pictures"
+                });*/
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+
+                /*app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, @"C:\Users\svetoslav12345678198\source\repos\Electronics Warehouse\pictures")),
+                    RequestPath = "/pictures"
+                });*/
+
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                Path.Combine(env.ContentRootPath, @"..\pictures")),
+                Path.Combine(env.ContentRootPath, PictureProcessing.PictureProcessor.pictureAbsolutePath)),
                 RequestPath = "/pictures"
-            });
-
+            }); 
             app.UseStaticFiles();
 
             app.UseRouting();
