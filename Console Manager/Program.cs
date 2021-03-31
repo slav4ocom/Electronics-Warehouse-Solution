@@ -9,7 +9,6 @@ namespace Console_Manager
     {
         static void Main(string[] args)
         {
-            PictureProcessor.picturePath = PictureProcessor.picturePathConsole;
             Engine.Run();
         }
     }

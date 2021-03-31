@@ -13,7 +13,8 @@ namespace CommonModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=192.168.0.107;Database=ElectronicsWarehouse;User Id=testlogin;password=testpass");
+                //optionsBuilder.UseSqlServer("Server=192.168.0.107;Database=ElectronicsWarehouse;User Id=testlogin;password=testpass");
+                optionsBuilder.UseSqlServer("Server=192.168.0.107;Database=WebManagerV2;User Id=testlogin;password=testpass");
             }
         }
 

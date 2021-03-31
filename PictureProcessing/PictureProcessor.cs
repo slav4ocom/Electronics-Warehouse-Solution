@@ -23,7 +23,8 @@ namespace PictureProcessing
 
         public void Download(string href)
         {
-            var filename = href.Split("/").ToList().Last();
+            //var filename = href.Split("/").ToList().Last();
+            var filename = href.Split("/").ToList().Last().Replace("%", "_");
             using (var client = new WebClient())
             {
                 client.DownloadFile(href, @$"{pictureAbsolutePath}{filename}");
@@ -31,7 +32,7 @@ namespace PictureProcessing
             Resize(@$"{pictureAbsolutePath}{filename}");
 
         }
-        
+
         private void Resize(string inputPath)
         {
             const int size = 150;

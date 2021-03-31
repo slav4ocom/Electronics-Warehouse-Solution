@@ -12,5 +12,6 @@ namespace Web_Manager_v._2.Data
             : base(options)
         {
         }
+
     }
 }

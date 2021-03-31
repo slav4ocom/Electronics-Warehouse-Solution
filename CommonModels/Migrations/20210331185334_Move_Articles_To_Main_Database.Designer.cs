@@ -3,14 +3,16 @@ using CommonModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CommonModels.Migrations
 {
     [DbContext(typeof(ElectronicsWarehouseContext))]
-    partial class ElectronicsWarehouseContextModelSnapshot : ModelSnapshot
+    [Migration("20210331185334_Move_Articles_To_Main_Database")]
+    partial class Move_Articles_To_Main_Database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
