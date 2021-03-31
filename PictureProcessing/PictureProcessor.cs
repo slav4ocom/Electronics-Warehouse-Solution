@@ -96,7 +96,8 @@ namespace PictureProcessing
             if (name != null)
             {
                 var nameParts = name.Split(".");
-                return $"{nameParts[0]}_small.{nameParts[1]}";
+                //return $"{nameParts[0]}_small.{nameParts[1]}";
+                return $"{nameParts[0]}_small.jpg";
             }
             else
             {

@@ -5,11 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommonModels;
 using PictureProcessing;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web_Manager.Controllers
 {
+    [Authorize]
     public class ManageController : Controller
     {
+        private readonly UserManager<IdentityUser> userManager;
+        public ManageController(UserManager<IdentityUser> userMan)
+        {
+            this.userManager = userMan;
+        }
+
+        
         public IActionResult Index()
         {
             return View();
@@ -27,6 +37,7 @@ namespace Web_Manager.Controllers
 
         public IActionResult EditPart(string id, string partname, string picture, string price, string parttype)
         {
+
             var myContext = new ElectronicsWarehouseContext();
             var myArticle = myContext.Articles.FirstOrDefault(n => n.Id == int.Parse(id));
             myArticle.Name = partname;
@@ -51,8 +62,10 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public IActionResult SubmitPart(string partname, string href, string price, string parttype)
+        public async Task<IActionResult> SubmitPart(string partname, string href, string price, string parttype)
         {
+            var user = await userManager.GetUserAsync(this.User);
+
             new PictureProcessor().Download(href);
             var fileName = href
                 .Split(new string[] { "\\", "/" }, StringSplitOptions.RemoveEmptyEntries)
@@ -73,7 +86,8 @@ namespace Web_Manager.Controllers
                 Name = partname,
                 PictureName = $"{fileName}.{fileExtension}",
                 Price = decimal.Parse(price),
-                PartType = parttype
+                PartType = parttype,
+                OwnerUser = user.UserName
             });
 
             myContext.SaveChanges();
