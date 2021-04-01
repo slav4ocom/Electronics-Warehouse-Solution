@@ -1,0 +1,49 @@
+﻿@{
+
+    var myContext = new CommonModels.StudentDbContext();
+    //var myContext = new Web_Manager_v._2.Data.ApplicationDbContext();
+
+    var partsList = myContext.Homeworks;
+
+    var currentUser = ViewData["currentUser"];
+}
+
+
+<h2>Моите Домашни работи:</h2>
+<h4>Добре дошъл @currentUser </h4>
+
+
+<div>
+    @{
+
+        {
+
+        <div class="row">
+            @foreach (var part in partsList)
+                {
+
+            <div ondblclick="GetRow(@part.Id)" class="col-md-3">
+
+                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/@PictureProcessing.PictureProcessor.GetSmallName(part.PictureName)" />
+                <br />
+                @part.PictureName
+                <br />
+                @part.Id @part.Name @part.Price лв.
+            </div>
+
+                }
+            <div class="col-md-3">
+                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/new.jpg" onclick="window.open('/Homework/AddArticle')">
+            </div>
+        </div>
+        }
+
+        <script>
+            function GetRow(partId) {
+                //document.getElementById("partnum").innerHTML = "Ред " + partId;
+                window.open("Homework/Edit?id=" + partId);
+            }
+        </script>
+
+    }
+</div>

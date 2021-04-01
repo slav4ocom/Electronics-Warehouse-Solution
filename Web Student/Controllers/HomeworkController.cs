@@ -11,17 +11,18 @@ using Microsoft.AspNetCore.Authorization;
 namespace Web_Manager.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class HomeworkController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
-        public ManageController(UserManager<IdentityUser> userMan)
+        public HomeworkController(UserManager<IdentityUser> userMan)
         {
             this.userManager = userMan;
         }
 
         
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewData["currentUser"]  = await userManager.GetUserAsync(this.User);
             return View();
         }
         public IActionResult AddArticle()

@@ -10,6 +10,11 @@ namespace CommonModels.Models
     {
         public int Id { get; private set; }
         public string PictureName { get; set; }
+        public string FullName { get; set; }
+        public string School { get; set; }
+        public string Grade { get; set; }
+        public string Town { get; set; }
+        public string PhoneNum { get; set; }
         public string UserFK { get; set; }
     }
 }

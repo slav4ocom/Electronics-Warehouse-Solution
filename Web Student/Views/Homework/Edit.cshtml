@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+
+    var idNum = (string)ViewData["Id"];
+
+    var myContext = new CommonModels.StudentDbContext();
+    var myArticle = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(idNum));
+    var pictureName = myArticle.PictureName;
+    var partName = myArticle.Name;
+    var partType = myArticle.PartType;
+    var price = myArticle.Price;
+    var id = myArticle.Id;
+
+    
+
+
+}
+
+<style>
+    .hand {
+        cursor: pointer;
+    }
+</style>
+
+<form method="post" asp-action="EditPart">
+    <input type="hidden" name="id" value="@id" />
+    <input type="text" name="partname" value="@partName" size="80" />
+    <br />
+    <img src="@PictureProcessing.PictureProcessor.picturePathWeb/@pictureName" width="300" onclick="ShowImage()" />
+    <input type="hidden" name="picture" value="@pictureName" />
+    <br />
+    <input type="text" name="parttype" value="@partType" size="80" />
+    <br />
+    <input type="text" name="price" value="@price" size="2" />лв.
+    <br />
+    Качено от @myArticle.OwnerUser
+    <br />
+    <input type="submit" value="приложи" />
+    <input type="button" value="обратно" onclick="Return()" />
+    <input type="button" value="премахни" onclick="Delete()" />
+</form>
+
+
+
+<script>
+    
+   
+
+    function Return() {
+
+        window.close();
+    }
+
+    function Delete() {
+        window.close();
+        window.open("DeletePart?Id=" + @id, "", "width=400,height=200,left=400,top=200");
+    }
+
+    function ShowImage() {
+        window.open('/pictures/@pictureName');
+    }
+</script>
+
+
+

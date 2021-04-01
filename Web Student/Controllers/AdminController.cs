@@ -22,9 +22,11 @@ namespace Web_Student.Controllers
 
         public IActionResult Index()
         {
-            var result = userManager.Users.Select(n => n.Id + " " + n.UserName).ToList();
-            return Json(result);
-            //return View();
+            //var result = userManager.Users.Select(n => n.Id + " " + n.UserName).ToList();
+            //ViewData["students"] = userManager.Users.ToList();
+            ViewBag.students = userManager.Users.ToArray();
+            //return Json(result);
+            return View();
         }
     }
 }
