@@ -39,7 +39,7 @@ namespace Web_Manager.Controllers
         {
 
             var myContext = new StudentDbContext();
-            var myArticle = myContext.Articles.FirstOrDefault(n => n.Id == int.Parse(id));
+            var myArticle = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(id));
             myArticle.Name = partname;
             myArticle.PartType = parttype;
             myArticle.Price = decimal.Parse(price);
@@ -53,8 +53,8 @@ namespace Web_Manager.Controllers
         public IActionResult DeletePart(string id)
         {
             var myContext = new StudentDbContext();
-            var myPart = myContext.Articles.FirstOrDefault(n => n.Id == int.Parse(id));
-            myContext.Articles.Remove(myPart);
+            var myPart = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(id));
+            myContext.Homeworks.Remove(myPart);
             myContext.SaveChanges();
             PictureProcessor.DeletePicture(myPart.PictureName);
 
@@ -81,7 +81,7 @@ namespace Web_Manager.Controllers
                 .Last();
 
             var myContext = new StudentDbContext();
-            myContext.Articles.Add(new Homework()
+            myContext.Homeworks.Add(new Homework()
             {
                 Name = partname,
                 PictureName = $"{fileName}.{fileExtension}",

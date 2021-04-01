@@ -19,7 +19,7 @@ namespace Console_Manager
                 .Select(a => a.Trim())
                 .ToArray();
 
-            db.Add(new Article()
+            db.Add(new Homework()
             {
                 Name = arguments[0],
                 PartType = arguments[1],
@@ -33,7 +33,7 @@ namespace Console_Manager
         {
             var db = Engine.db;
 
-            db.Articles.ToList().ForEach(a => Console.WriteLine($"{a.Id}. {a.Name} {a.PartType} {a.Price} BGN"));
+            db.Homeworks.ToList().ForEach(a => Console.WriteLine($"{a.Id}. {a.Name} {a.PartType} {a.Price} BGN"));
 
         }
 
@@ -43,7 +43,7 @@ namespace Console_Manager
 
             Console.WriteLine("Enter Id to remove:");
             var id = int.Parse(Console.ReadLine());
-            db.Remove(db.Articles.FirstOrDefault(a => a.Id == id));
+            db.Remove(db.Homeworks.FirstOrDefault(a => a.Id == id));
             db.SaveChanges();
 
         }
@@ -54,7 +54,7 @@ namespace Console_Manager
 
             Console.WriteLine("Enter Id to edit:");
             var idToEdit = int.Parse(Console.ReadLine());
-            var part = db.Articles.FirstOrDefault(p => p.Id == idToEdit);
+            var part = db.Homeworks.FirstOrDefault(p => p.Id == idToEdit);
             if (part != null)
             {
                 Console.WriteLine($"{part.Id}. {part.Name} {part.PartType} {part.Price} BGN");

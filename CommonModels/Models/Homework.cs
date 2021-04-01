@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CommonModels
 {
-    public class Article
+    public class Homework
     {
         public int Id { get; private set; }
         public string Name { get; set; }

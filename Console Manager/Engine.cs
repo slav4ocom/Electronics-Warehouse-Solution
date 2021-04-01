@@ -12,10 +12,10 @@ namespace Console_Manager
 {
     public static class Engine
     {
-        public static ElectronicsWarehouseContext db { get; private set; }
+        public static StudentDbContext db { get; private set; }
         public static void Run()
         {
-            db = new ElectronicsWarehouseContext();
+            db = new StudentDbContext();
             db.Database.Migrate();
 
             CultureInfo.CurrentCulture = new CultureInfo("en-EN");

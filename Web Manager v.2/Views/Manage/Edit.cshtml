@@ -6,7 +6,7 @@
 
     var idNum = (string)ViewData["Id"];
 
-    var myContext = new CommonModels.ElectronicsWarehouseContext();
+    var myContext = new CommonModels.StudentDbContext();
     var myArticle = myContext.Articles.FirstOrDefault(n => n.Id == int.Parse(idNum));
     var pictureName = myArticle.PictureName;
     var partName = myArticle.Name;
