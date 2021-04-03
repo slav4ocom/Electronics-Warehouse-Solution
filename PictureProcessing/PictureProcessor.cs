@@ -16,9 +16,11 @@ namespace PictureProcessing
 
         }
 
-        public static readonly string picturePathWeb = @"..\pictures\";
+        public static readonly string picturePathWeb = @"..\pictures";
+        public static readonly string profilePathWeb = @"..\profiles";
         public static readonly string picturePathConsole = @"..\..\..\..\pictures\";
         public static readonly string pictureAbsolutePath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/pictures/";
+        public static readonly string profileAbsolutePath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/profiles/";
         //public static string picturePath { get; set; } = picturePathWeb;
 
         public void Download(string href)

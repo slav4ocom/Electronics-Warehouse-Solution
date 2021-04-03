@@ -33,6 +33,7 @@ namespace Web_Manager_v._2
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -102,7 +103,15 @@ namespace Web_Manager_v._2
                 FileProvider = new PhysicalFileProvider(
                 Path.Combine(env.ContentRootPath, PictureProcessing.PictureProcessor.pictureAbsolutePath)),
                 RequestPath = "/pictures"
-            }); 
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, PictureProcessing.PictureProcessor.profileAbsolutePath)),
+                RequestPath = "/profiles"
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -117,6 +126,7 @@ namespace Web_Manager_v._2
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
         }
     }
 }

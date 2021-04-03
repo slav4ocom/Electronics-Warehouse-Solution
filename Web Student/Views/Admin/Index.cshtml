@@ -4,7 +4,8 @@
 @{
     var myContext = new CommonModels.StudentDbContext();
     var students = myContext.UserProfiles;
-
+    //var picture = "student_small.jpg";
+    
 }
 
 <h2>Моите ученици</h2>
@@ -21,10 +22,16 @@
                 {
 
                     <div ondblclick="GetRow(@student.Id)" class="col-md-3">
-
-                        <img src="@PictureProcessing.PictureProcessor.picturePathWeb/student_small.jpg" />
+                        @{
+                            var picture = student.PictureName;
+                            if(picture == null || picture == string.Empty)
+                            {
+                                picture = "student_small.jpg";
+                            }
+                        }
+                        <img src="@PictureProcessing.PictureProcessor.profilePathWeb/@picture" />
                         <br />
-                        @student.PictureName
+                        @student.FullName
                         <br />
                     </div>
 

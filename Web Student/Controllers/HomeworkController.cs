@@ -20,12 +20,13 @@ namespace Web_Manager.Controllers
         }
 
         
+        [Authorize(Roles = "Teacher")]
         public async Task<IActionResult> Index()
         {
             ViewData["currentUser"]  = await userManager.GetUserAsync(this.User);
             return View();
         }
-        public IActionResult AddArticle()
+        public IActionResult AddHomework()
         {
             return View();
         }
@@ -36,22 +37,22 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public IActionResult EditPart(string id, string partname, string picture, string price, string parttype)
+        /*public IActionResult EditPart(string id, string partname, string picture, string price, string parttype)
         {
 
             var myContext = new StudentDbContext();
             var myArticle = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(id));
             myArticle.Name = partname;
-            myArticle.PartType = parttype;
-            myArticle.Price = decimal.Parse(price);
+            myArticle.WorkType = parttype;
+            myArticle.Points = decimal.Parse(price);
 
             myContext.SaveChanges();
 
             ViewData["Id"] = id;
             return View("Edit");
-        }
+        }*/
 
-        public IActionResult DeletePart(string id)
+        public IActionResult DeleteHomework(string id)
         {
             var myContext = new StudentDbContext();
             var myPart = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(id));
@@ -63,7 +64,7 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SubmitPart(string partname, string href, string price, string parttype)
+        /*public async Task<IActionResult> SubmitHomework(string partname, string href, string price, string parttype)
         {
             var user = await userManager.GetUserAsync(this.User);
 
@@ -86,8 +87,39 @@ namespace Web_Manager.Controllers
             {
                 Name = partname,
                 PictureName = $"{fileName}.{fileExtension}",
-                Price = decimal.Parse(price),
-                PartType = parttype,
+                Points = decimal.Parse(price),
+                WorkType = parttype,
+                OwnerUser = user.UserName
+            });
+
+            myContext.SaveChanges();
+            return View();
+        }*/
+
+        public async Task<IActionResult> SubmitMyHomework(string name, string href, string notes)
+        {
+            var user = await userManager.GetUserAsync(this.User);
+
+            new PictureProcessor().Download(href);
+            var fileName = href
+                .Split(new string[] { "\\", "/" }, StringSplitOptions.RemoveEmptyEntries)
+                .Last()
+                .Split(".")
+                .First()
+                .Replace("%", "_");
+
+            var fileExtension = href
+                .Split(new string[] { "\\", "/" }, StringSplitOptions.RemoveEmptyEntries)
+                .Last()
+                .Split(".")
+                .Last();
+
+            var myContext = new StudentDbContext();
+            myContext.Homeworks.Add(new Homework()
+            {
+                Name = name,
+                PictureName = $"{fileName}.{fileExtension}",
+                Notes = notes,
                 OwnerUser = user.UserName
             });
 
@@ -96,5 +128,22 @@ namespace Web_Manager.Controllers
         }
 
 
+        public IActionResult MyHomeworks()
+        {
+            ViewData["Tasks"] = new string[] {
+                "Снимай патриаршията !",
+                "Снимай Марийка под гащите.",
+                "Загради квадратчетата с кръгчета",
+                "Напиши стихотворение за птичките",
+                "Направи снимка на небето"
+            };
+            return View();
+        }
+
+        public IActionResult AddMyHomework()
+        {
+            return View();
+        }
+       
     }
 }

@@ -1,0 +1,22 @@
+﻿@{
+    //ViewData["Tasks"] = "Да се снима патриаршията";
+}
+<h2>Моите домашни</h2>
+
+<br />
+Списък със занятия:
+<br />
+
+
+@{
+    int cnt = 1;
+    var Tasks = ViewData["Tasks"];
+    foreach (var task in (string[])Tasks)
+    {
+        <div>@cnt. @task <a asp-controller="Homework" asp-action="AddMyHomework">Качи домашно</a></div>
+        cnt++;
+    }
+}
+
+<br />
+<br />

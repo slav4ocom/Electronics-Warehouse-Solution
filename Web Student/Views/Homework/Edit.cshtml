@@ -10,8 +10,7 @@
     var myArticle = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(idNum));
     var pictureName = myArticle.PictureName;
     var partName = myArticle.Name;
-    var partType = myArticle.PartType;
-    var price = myArticle.Price;
+    var partType = myArticle.Notes;
     var id = myArticle.Id;
 
     
@@ -33,8 +32,6 @@
     <input type="hidden" name="picture" value="@pictureName" />
     <br />
     <input type="text" name="parttype" value="@partType" size="80" />
-    <br />
-    <input type="text" name="price" value="@price" size="2" />лв.
     <br />
     Качено от @myArticle.OwnerUser
     <br />

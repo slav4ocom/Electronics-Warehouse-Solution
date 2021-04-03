@@ -11,7 +11,7 @@ namespace CommonModels
     {
         public DbSet<Homework> Homeworks { get; set; }
 
-        public DbSet<StudentProfile> UserProfiles { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

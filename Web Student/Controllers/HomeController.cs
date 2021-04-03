@@ -23,7 +23,7 @@ namespace Web_Manager_v._2.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }

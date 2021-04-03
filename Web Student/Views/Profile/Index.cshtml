@@ -9,13 +9,23 @@
 Потребителско име : @ViewBag.userData.UserFK
 <br />
 
-<img src="@PictureProcessing.PictureProcessor.picturePathWeb/student_small.jpg" />
+<img src="@PictureProcessing.PictureProcessor.profilePathWeb/@ViewBag.userData.PictureName" />
 <br />
 Име: @ViewBag.userData.FullName
 <br />
 Училище: @ViewBag.userData.School
 <br />
-Клас: @ViewBag.userData.Grade
+@{
+    if (ViewBag.userData.Role == "Teacher")
+    {
+        <div>Преподавател</div>
+    }
+    else if (ViewBag.userData.Role == "Student")
+    {
+        <div>Клас: @ViewBag.userData.Grade</div>
+    }
+}
+
 <br />
 Град: @ViewBag.userData.Town
 <br />

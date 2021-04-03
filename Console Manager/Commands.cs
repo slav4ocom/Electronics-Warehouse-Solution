@@ -22,8 +22,8 @@ namespace Console_Manager
             db.Add(new Homework()
             {
                 Name = arguments[0],
-                PartType = arguments[1],
-                Price = decimal.Parse(arguments[2])
+                WorkType = arguments[1],
+                Points = decimal.Parse(arguments[2])
             });
 
             db.SaveChanges();
@@ -33,7 +33,7 @@ namespace Console_Manager
         {
             var db = Engine.db;
 
-            db.Homeworks.ToList().ForEach(a => Console.WriteLine($"{a.Id}. {a.Name} {a.PartType} {a.Price} BGN"));
+            db.Homeworks.ToList().ForEach(a => Console.WriteLine($"{a.Id}. {a.Name} {a.WorkType} {a.Points} точки"));
 
         }
 
@@ -57,7 +57,7 @@ namespace Console_Manager
             var part = db.Homeworks.FirstOrDefault(p => p.Id == idToEdit);
             if (part != null)
             {
-                Console.WriteLine($"{part.Id}. {part.Name} {part.PartType} {part.Price} BGN");
+                Console.WriteLine($"{part.Id}. {part.Name} {part.WorkType} {part.Points} точки");
                 Console.WriteLine("Enter new data: name, part type, price ");
                 var editArgs = Console.ReadLine()
                     .Split(",", StringSplitOptions.RemoveEmptyEntries)
@@ -65,8 +65,8 @@ namespace Console_Manager
                     .ToArray();
 
                 part.Name = editArgs[0];
-                part.PartType = editArgs[1];
-                part.Price = decimal.Parse(editArgs[2]);
+                part.WorkType = editArgs[1];
+                part.Points = decimal.Parse(editArgs[2]);
                 db.SaveChanges();
             }
             else

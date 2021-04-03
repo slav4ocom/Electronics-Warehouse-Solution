@@ -9,9 +9,7 @@
 }
 
 
-<h2>Моите Домашни работи:</h2>
-<h4>Добре дошъл @currentUser </h4>
-
+<h2>Домашни работи на моите ученици:</h2>
 
 <div>
     @{
@@ -28,19 +26,17 @@
                 <br />
                 @part.PictureName
                 <br />
-                @part.Id @part.Name @part.Price лв.
             </div>
 
                 }
             <div class="col-md-3">
-                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/new.jpg" onclick="window.open('/Homework/AddArticle')">
+                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/new.jpg" onclick="window.open('/Homework/AddHomework')">
             </div>
         </div>
         }
 
         <script>
             function GetRow(partId) {
-                //document.getElementById("partnum").innerHTML = "Ред " + partId;
                 window.open("Homework/Edit?id=" + partId);
             }
         </script>

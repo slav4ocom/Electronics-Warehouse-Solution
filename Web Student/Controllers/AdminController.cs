@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +10,7 @@ using Web_Manager_v._2.Data;
 
 namespace Web_Student.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class AdminController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
@@ -22,10 +24,7 @@ namespace Web_Student.Controllers
 
         public IActionResult Index()
         {
-            //var result = userManager.Users.Select(n => n.Id + " " + n.UserName).ToList();
-            //ViewData["students"] = userManager.Users.ToList();
             ViewBag.students = userManager.Users.ToArray();
-            //return Json(result);
             return View();
         }
     }
