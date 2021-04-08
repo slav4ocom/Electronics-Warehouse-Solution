@@ -15,7 +15,7 @@ namespace CommonModels.Models
         public string Grade { get; set; }
         public string Town { get; set; }
         public string PhoneNum { get; set; }
-        public string Role { get; set; }
+        //public string Role { get; set; }
         public string UserFK { get; set; }
     }
 }

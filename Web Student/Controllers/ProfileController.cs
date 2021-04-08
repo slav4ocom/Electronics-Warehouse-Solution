@@ -25,17 +25,38 @@ namespace Web_Student.Controllers
             var myContext = new StudentDbContext();
             var currentUserData = myContext.UserProfiles.FirstOrDefault(p => p.UserFK == currentUser.Id);
 
+
             if (currentUserData == null)
             {
-                return Json("You have not setup your profile yet.");
+                currentUserData = new CommonModels.Models.UserProfile();
+                currentUserData.FullName = "Вашите имена";
+                currentUserData.Grade = "въведете вашият клас";
+                currentUserData.PhoneNum = "088 XX XX XXX";
+                currentUserData.School = "Комаров";
+                currentUserData.Town = "Велико Търново";
+                ViewBag.profileFinished = false;
+                //return Json("You have not setup your profile yet.");
+            }
+            else
+            {
+                ViewBag.profileFinished = true;
             }
 
             ViewBag.userData = currentUserData;
+
             if (currentUserData.PictureName == null || currentUserData.PictureName == string.Empty)
             {
                 ViewBag.userData.PictureName = "student_small.jpg";
             }
+
+            ViewBag.User = User;
             return View();
+        }
+
+        public IActionResult SubmitProfile()
+        {
+            //return Json("GOTOVO !");
+            return View("../Home/Index");
         }
 
         public async Task<IActionResult> AddTeacher()
@@ -63,7 +84,7 @@ namespace Web_Student.Controllers
             }
             var currentUser = await userManager.GetUserAsync(this.User);
             var result = await userManager.RemoveFromRoleAsync(currentUser, "Teacher");
-            
+
             return Json(result);
         }
 

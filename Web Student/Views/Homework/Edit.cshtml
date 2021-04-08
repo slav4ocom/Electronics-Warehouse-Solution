@@ -9,8 +9,7 @@
     var myContext = new CommonModels.StudentDbContext();
     var myArticle = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(idNum));
     var pictureName = myArticle.PictureName;
-    var partName = myArticle.Name;
-    var partType = myArticle.Notes;
+    //var partType = myArticle.Notes;
     var id = myArticle.Id;
 
     
@@ -26,12 +25,12 @@
 
 <form method="post" asp-action="EditPart">
     <input type="hidden" name="id" value="@id" />
-    <input type="text" name="partname" value="@partName" size="80" />
+    <input type="text" name="partname" value="" size="80" />
     <br />
     <img src="@PictureProcessing.PictureProcessor.picturePathWeb/@pictureName" width="300" onclick="ShowImage()" />
     <input type="hidden" name="picture" value="@pictureName" />
     <br />
-    <input type="text" name="parttype" value="@partType" size="80" />
+    <input type="text" name="parttype" value="" size="80" />
     <br />
     Качено от @myArticle.OwnerUser
     <br />

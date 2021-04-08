@@ -117,7 +117,6 @@ namespace Web_Manager.Controllers
             var myContext = new StudentDbContext();
             myContext.Homeworks.Add(new Homework()
             {
-                Name = name,
                 PictureName = $"{fileName}.{fileExtension}",
                 Notes = notes,
                 OwnerUser = user.UserName
@@ -140,7 +139,7 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public IActionResult AddMyHomework()
+        public IActionResult ApplyHomework()
         {
             return View();
         }

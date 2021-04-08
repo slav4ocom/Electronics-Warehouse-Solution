@@ -13,7 +13,7 @@
     var Tasks = ViewData["Tasks"];
     foreach (var task in (string[])Tasks)
     {
-        <div>@cnt. @task <a asp-controller="Homework" asp-action="AddMyHomework">Качи домашно</a></div>
+        <div>@cnt. @task <button onclick="window.open('/Homework/ApplyHomework')">Качи домашно</button></div>
         cnt++;
     }
 }

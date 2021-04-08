@@ -1,33 +1,54 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
-}
+    if (ViewBag.profileFinished == true)
+    {
 
-<h4>Моят профил</h4>
+
+        <h4>Моят профил</h4>
+
+    }
+    else
+    {
+        <h4 style="color:orangered">Не сте завършили своят профил</h4>
+    }
+}
 
 Потребителско име : @ViewBag.userData.UserFK
 <br />
 
 <img src="@PictureProcessing.PictureProcessor.profilePathWeb/@ViewBag.userData.PictureName" />
 <br />
-Име: @ViewBag.userData.FullName
-<br />
-Училище: @ViewBag.userData.School
-<br />
-@{
-    if (ViewBag.userData.Role == "Teacher")
-    {
-        <div>Преподавател</div>
-    }
-    else if (ViewBag.userData.Role == "Student")
-    {
-        <div>Клас: @ViewBag.userData.Grade</div>
-    }
-}
 
-<br />
-Град: @ViewBag.userData.Town
-<br />
-Тел: @ViewBag.userData.PhoneNum
-<br />
+
+
+<form method="post" asp-action="SubmitProfile">
+    <input type="hidden" name="id" value="id" />
+    име: <input type="text" name="fullname" value="@ViewBag.userData.FullName" size="50" />
+    <br />
+    <input type="hidden" name="picturename" value="pictureName" />
+    училище: <input type="text" name="school" value="@ViewBag.userData.School" size="45" />
+    <br />
+
+    @{
+        if (ViewBag.User.IsInRole("Teacher"))
+        {
+            <div>Преподавател <input type="text" name="grade" value="@ViewBag.userData.Grade" size="48" /></div>
+
+        }
+        else if (ViewBag.User.IsInRole("Student"))
+        {
+            <div>Клас: <input type="text" name="grade" value="@ViewBag.userData.Grade" size="50" /></div>
+        }
+    }
+
+    град: <input type="text" name="town" value="@ViewBag.userData.Town" size="50" />
+    <br />
+    телефон: <input type="text" name="phonenum" value="@ViewBag.userData.PhoneNum" size="46" />
+    <br />
+    <br />
+    <input type="submit" value="запомни" />
+</form>
+<form method="post" asp-controller="Home" asp-action="Index">
+    <input type="submit" value="начало" />
+
+</form>

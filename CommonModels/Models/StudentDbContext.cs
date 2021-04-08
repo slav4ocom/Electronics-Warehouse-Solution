@@ -9,10 +9,9 @@ namespace CommonModels
 {
     public class StudentDbContext : DbContext
     {
+        public DbSet<HomeTask> HomeTasks { get; set; }
         public DbSet<Homework> Homeworks { get; set; }
-
         public DbSet<UserProfile> UserProfiles { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
