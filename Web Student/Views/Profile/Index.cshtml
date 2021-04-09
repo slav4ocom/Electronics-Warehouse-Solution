@@ -23,6 +23,8 @@
 
 <form method="post" asp-action="SubmitProfile">
     <input type="hidden" name="id" value="id" />
+    снимка: <input type="text" name="picturename" value="@ViewBag.userData.PictureName" size="47" />
+    <br />
     име: <input type="text" name="fullname" value="@ViewBag.userData.FullName" size="50" />
     <br />
     <input type="hidden" name="picturename" value="pictureName" />
@@ -43,7 +45,7 @@
 
     град: <input type="text" name="town" value="@ViewBag.userData.Town" size="50" />
     <br />
-    телефон: <input type="text" name="phonenum" value="@ViewBag.userData.PhoneNum" size="46" />
+    телефон: <input type="tel" name="phonenum" value="@ViewBag.userData.PhoneNum" size="46" />
     <br />
     <br />
     <input type="submit" value="запомни" />

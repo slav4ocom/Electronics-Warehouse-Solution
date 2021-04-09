@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CommonModels.Models;
+
 
 namespace Web_Student.Controllers
 {
@@ -14,10 +16,14 @@ namespace Web_Student.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
-        public ProfileController(UserManager<IdentityUser> userMan, RoleManager<IdentityRole> roleMan)
+        private readonly SignInManager<IdentityUser> signInManager;
+        public ProfileController(UserManager<IdentityUser> userMan,
+            RoleManager<IdentityRole> roleMan,
+            SignInManager<IdentityUser> signMan)
         {
             this.userManager = userMan;
             this.roleManager = roleMan;
+            this.signInManager = signMan;
         }
         public async Task<IActionResult> Index()
         {
@@ -35,7 +41,6 @@ namespace Web_Student.Controllers
                 currentUserData.School = "Комаров";
                 currentUserData.Town = "Велико Търново";
                 ViewBag.profileFinished = false;
-                //return Json("You have not setup your profile yet.");
             }
             else
             {
@@ -48,15 +53,60 @@ namespace Web_Student.Controllers
             {
                 ViewBag.userData.PictureName = "student_small.jpg";
             }
-
+            
             ViewBag.User = User;
             return View();
         }
 
-        public IActionResult SubmitProfile()
+        public async Task<IActionResult> SubmitProfile(string fullname,
+            string school,
+            string grade,
+            string town,
+            string phonenum,
+            string picturename)
         {
-            //return Json("GOTOVO !");
-            return View("../Home/Index");
+            var currentUser = await userManager.GetUserAsync(this.User);
+            var studentContext = new StudentDbContext();
+
+            //var userProfiles = studentContext.UserProfiles.ToList();
+            var currentProfile = studentContext
+                .UserProfiles
+                .ToList()
+                .FirstOrDefault(n => n.UserFK == currentUser.Id);
+
+            var newProfile = new UserProfile()
+            {
+                FullName = fullname,
+                School = school,
+                Grade = grade,
+                Town = town,
+                PhoneNum = phonenum,
+                UserFK = currentUser.Id,
+                PictureName = picturename
+
+            };
+
+            if (currentProfile == null)
+            {
+                studentContext.Add(newProfile);
+                await _AddStudent();
+                await signInManager.SignOutAsync();
+                studentContext.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                currentProfile.FullName = fullname;
+                currentProfile.School = school;
+                currentProfile.Grade = grade;
+                currentProfile.Town = town;
+                currentProfile.PhoneNum = phonenum;
+                currentProfile.PictureName = picturename;
+
+                studentContext.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
         public async Task<IActionResult> AddTeacher()
@@ -88,7 +138,7 @@ namespace Web_Student.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> AddStudent()
+        private async Task<IdentityResult> _AddStudent()
         {
             if (!await roleManager.RoleExistsAsync("Student"))
             {
@@ -99,6 +149,11 @@ namespace Web_Student.Controllers
             }
             var currentUser = await userManager.GetUserAsync(this.User);
             var result = await userManager.AddToRoleAsync(currentUser, "Student");
+            return result;
+        }
+        public async Task<IActionResult> AddStudent()
+        {
+            var result = await _AddStudent();
             return Json(result);
         }
         public async Task<IActionResult> RemoveStudent()

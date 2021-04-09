@@ -32,9 +32,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Homework" asp-action="Index">Домашни</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Моят профил</a>
-                                </li>
 
                             }
                         }
@@ -45,10 +42,17 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Homework" asp-action="MyHomeworks">Моите занятия</a>
                                 </li>
 
+                            }
+                        }
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Моят профил</a>
                                 </li>
+
                             }
+
                         }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">За портала</a>
