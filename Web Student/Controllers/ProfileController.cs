@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CommonModels.Models;
-
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using PictureProcessing;
 
 namespace Web_Student.Controllers
 {
@@ -53,7 +55,7 @@ namespace Web_Student.Controllers
             {
                 ViewBag.userData.PictureName = "student_small.jpg";
             }
-            
+
             ViewBag.User = User;
             return View();
         }
@@ -67,13 +69,8 @@ namespace Web_Student.Controllers
         {
             var currentUser = await userManager.GetUserAsync(this.User);
             var studentContext = new StudentDbContext();
-
-            //var userProfiles = studentContext.UserProfiles.ToList();
-            var currentProfile = studentContext
-                .UserProfiles
-                .ToList()
-                .FirstOrDefault(n => n.UserFK == currentUser.Id);
-
+            var currentProfile = await _GetCurrentUserProfile(studentContext);
+        
             var newProfile = new UserProfile()
             {
                 FullName = fullname,
@@ -101,9 +98,10 @@ namespace Web_Student.Controllers
                 currentProfile.Grade = grade;
                 currentProfile.Town = town;
                 currentProfile.PhoneNum = phonenum;
-                currentProfile.PictureName = picturename;
+                //currentProfile.PictureName = picturename;
 
-                studentContext.SaveChanges();
+                //studentContext.SaveChanges();
+                await studentContext.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
 
@@ -169,5 +167,50 @@ namespace Web_Student.Controllers
             var result = await userManager.RemoveFromRoleAsync(currentUser, "Student");
             return Json(result);
         }
+
+        private async Task<UserProfile> _GetCurrentUserProfile(StudentDbContext userContext)
+        {
+            //var userContext = new StudentDbContext();
+            var currentUser = await userManager.GetUserAsync(this.User);
+            var currentProfile = userContext.UserProfiles.FirstOrDefault(u => u.UserFK == currentUser.Id);
+            return currentProfile;
+        }
+        public async Task<IActionResult> EditMyPicture()
+        {
+            var studentContext = new StudentDbContext();
+            var profileData = await _GetCurrentUserProfile(studentContext);
+            ViewBag.profileData = profileData;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitProfilePicture(IFormFile file)
+        {
+            var studenContext = new StudentDbContext();
+            var myProfile = await _GetCurrentUserProfile(studenContext);
+            //var fileExtension = file.FileName.Split(".").Last();
+            myProfile.PictureName = $"{myProfile.UserFK}_small.jpg";
+            await studenContext.SaveChangesAsync();
+
+            long size = file.Length;
+
+            string filePathAndName = "";
+
+            if (file.Length > 0)
+            {
+                filePathAndName = @$"{PictureProcessor.profileAbsolutePath}{myProfile.UserFK}.avatar";
+
+                using (var stream = new FileStream(filePathAndName, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+
+            PictureProcessor.Resize(filePathAndName);
+
+            return Redirect("/Profile");
+        }
+
+
     }
 }

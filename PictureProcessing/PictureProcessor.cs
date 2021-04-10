@@ -35,14 +35,17 @@ namespace PictureProcessing
 
         }
 
-        private void Resize(string inputPath)
+        public static void Resize(string inputPath)
         {
             const int size = 150;
             const int quality = 75;
 
+            var pathParts = inputPath.Split(".");
+            var smallNamePath = $"{pathParts[0]}_small.{pathParts[1]}";
+
             using (var rawData = Image.FromFile(inputPath))
             {
-                //using (var image = new Bitmap(System.Drawing.Image.FromFile(inputPath)))
+                
                 using (var image = new Bitmap(rawData))
                 {
                     int width, height;
@@ -71,7 +74,8 @@ namespace PictureProcessing
                             .Split(".")
                             .First();
 
-                        using (var output = File.Open(@$"{pictureAbsolutePath}{filename}_small.jpg"
+                        using (var output = File.Open(@$"{inputPath.Split(".").First()}_small.jpg"
+                        //using (var output = File.Open(@$"{pictureAbsolutePath}{filename}_small.jpg"
                             , FileMode.Create))
                         {
                             var qualityParamId = Encoder.Quality;
