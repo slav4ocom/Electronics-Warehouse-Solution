@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Web_Manager_v._2.Data;
+using PictureProcessing;
 
 namespace Web_Manager_v._2
 {
@@ -101,15 +102,22 @@ namespace Web_Manager_v._2
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                Path.Combine(env.ContentRootPath, PictureProcessing.PictureProcessor.pictureAbsolutePath)),
+                Path.Combine(env.ContentRootPath, PictureProcessor.pictureAbsolutePath)),
                 RequestPath = "/pictures"
             });
 
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
-                Path.Combine(env.ContentRootPath, PictureProcessing.PictureProcessor.profileAbsolutePath)),
+                Path.Combine(env.ContentRootPath, PictureProcessor.profileAbsolutePath)),
                 RequestPath = "/profiles"
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, PictureProcessor.homeworksPath)),
+                RequestPath = "/homeworks"
             });
 
             app.UseStaticFiles();

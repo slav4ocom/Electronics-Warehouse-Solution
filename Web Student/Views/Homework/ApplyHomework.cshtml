@@ -1,6 +1,6 @@
 ﻿
-<form method="post" asp-action="SubmitMyHomework">
-    <input type="url" name="href" /> решение (снимка или файл)
+<form method="post" asp-action="SubmitMyHomework" enctype="multipart/form-data">
+    <input type="file" name="file" /> решение (снимка или файл)
     <br />
     <br />
     <input type="text" name="notes" /> бележки

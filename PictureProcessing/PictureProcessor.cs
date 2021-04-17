@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -6,6 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace PictureProcessing
 {
@@ -21,8 +23,20 @@ namespace PictureProcessing
         public static readonly string picturePathConsole = @"..\..\..\..\pictures\";
         public static readonly string pictureAbsolutePath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/pictures/";
         public static readonly string profileAbsolutePath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/profiles/";
-        //public static string picturePath { get; set; } = picturePathWeb;
+        public static readonly string homeworksPath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/homeworks/";
 
+        public static async Task SaveFileAsync(IFormFile inputFile, string fileName)
+        {
+            if(inputFile.Length > 0)
+            {
+                var fileNameWithPath = @$"{homeworksPath}{fileName}";
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    await inputFile.CopyToAsync(stream);
+                }
+            }
+        }
         public void Download(string href)
         {
             //var filename = href.Split("/").ToList().Last();

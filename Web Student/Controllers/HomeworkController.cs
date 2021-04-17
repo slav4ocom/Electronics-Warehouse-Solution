@@ -7,6 +7,8 @@ using CommonModels;
 using PictureProcessing;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Web_Manager.Controllers
 {
@@ -48,33 +50,17 @@ namespace Web_Manager.Controllers
             ViewData["Id"] = id;
             return View();
         }
-        public async Task<IActionResult> SubmitMyHomework(string name, string href, string notes)
+        public async Task<IActionResult> SubmitMyHomework(IFormFile file, string notes)
         {
-            var user = await userManager.GetUserAsync(this.User);
+            var currentUser = await userManager.GetUserAsync(this.User);
 
-            new PictureProcessor().Download(href);
-            var fileName = href
-                .Split(new string[] { "\\", "/" }, StringSplitOptions.RemoveEmptyEntries)
-                .Last()
-                .Split(".")
-                .First()
-                .Replace("%", "_");
-
-            var fileExtension = href
-                .Split(new string[] { "\\", "/" }, StringSplitOptions.RemoveEmptyEntries)
-                .Last()
-                .Split(".")
-                .Last();
-
-            var myContext = new StudentDbContext();
-            myContext.Homeworks.Add(new Homework()
+            if (Directory.Exists($"{PictureProcessor.homeworksPath}{currentUser.Id}") == false)
             {
-                PictureName = $"{fileName}.{fileExtension}",
-                Notes = notes,
-                OwnerUser = user.UserName
-            });
+                Directory.CreateDirectory($"{PictureProcessor.homeworksPath}{currentUser.Id}");
+            }
 
-            myContext.SaveChanges();
+            await PictureProcessor.SaveFileAsync(file, $"{currentUser.Id}/{file.FileName}");
+        
             return View();
         }
 
