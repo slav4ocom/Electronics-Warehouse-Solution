@@ -45,7 +45,7 @@ namespace Web_Manager.Controllers
             var myPart = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(id));
             myContext.Homeworks.Remove(myPart);
             myContext.SaveChanges();
-            PictureProcessor.DeletePicture(myPart.PictureName);
+            PictureProcessor.DeletePicture(myPart.SolutionPicture);
 
             ViewData["Id"] = id;
             return View();
@@ -67,13 +67,36 @@ namespace Web_Manager.Controllers
 
         public IActionResult MyHomeworks()
         {
-            ViewData["Tasks"] = new string[] {
+            var Lessons = new string[] {
+                "Снимане на културни ценности",
+                "Папарашки снимки",
+                "Ограждане на кръгчета",
+                "Поезия",
+                "Природни снимки"
+            };
+
+            var Tasks = new string[] {
                 "Снимай патриаршията !",
                 "Снимай Марийка под гащите.",
                 "Загради квадратчетата с кръгчета",
                 "Напиши стихотворение за птичките",
                 "Направи снимка на небето"
             };
+
+
+            var myHomeworks = new List<Homework>();
+
+            myHomeworks.Add(new Homework()
+            {
+                TaskNotes = "Снимай катедралата !",
+                SolutionNotes = "Ето господине.",
+                
+            });
+
+            ViewBag.Lessons = Lessons;
+            ViewBag.Tasks = Tasks;
+            ViewBag.MyHomeworks = myHomeworks;
+            
             return View();
         }
 

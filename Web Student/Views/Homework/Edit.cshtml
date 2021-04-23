@@ -8,7 +8,7 @@
 
     var myContext = new CommonModels.StudentDbContext();
     var myArticle = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(idNum));
-    var pictureName = myArticle.PictureName;
+    var pictureName = myArticle.SolutionPicture;
     //var partType = myArticle.Notes;
     var id = myArticle.Id;
 
@@ -32,7 +32,7 @@
     <br />
     <input type="text" name="parttype" value="" size="80" />
     <br />
-    Качено от @myArticle.OwnerUser
+    Качено от @myArticle.UserFk
     <br />
     <input type="submit" value="приложи" />
     <input type="button" value="обратно" onclick="Return()" />
