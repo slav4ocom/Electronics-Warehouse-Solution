@@ -206,7 +206,7 @@ namespace Web_Student.Controllers
                 }
             }
 
-            PictureProcessor.Resize(filePathAndName);
+            PictureProcessor.Resize($"{filePathAndName}");
 
             return Redirect("/Profile");
         }

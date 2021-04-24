@@ -102,8 +102,9 @@ namespace PictureProcessing
                             .Split(".")
                             .First();
 
-                        using (var output = File.Open(@$"{inputPath.Split(".").First()}_small.jpg"
-                        //using (var output = File.Open(@$"{pictureAbsolutePath}{filename}_small.jpg"
+                        using (var output = File.Open(@$"{inputPath.Split(".avatar").First()}_small.jpg"
+                        //var result = inputPath.Split(".avatar").First();
+                        //using (var output = File.Open(@$"{inputPath}_small.jpg"
                             , FileMode.Create))
                         {
                             var qualityParamId = Encoder.Quality;
