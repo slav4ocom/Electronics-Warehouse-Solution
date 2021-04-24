@@ -1,6 +1,7 @@
 ﻿using CommonModels.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,12 @@ namespace CommonModels
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=192.168.0.107;Database=WebStudent;User Id=testlogin;password=testpass");
+                var config = new ConfigurationBuilder()
+                    .AddJsonFile($"appsettings.json", true, true)
+                    .Build();
+                var str = config["ConnectionStrings:DefaultConnection"];
+                //optionsBuilder.UseSqlServer("Server=192.168.0.107;Database=WebStudent;User Id=testlogin;password=testpass");
+                optionsBuilder.UseSqlServer(str);
             }
         }
 

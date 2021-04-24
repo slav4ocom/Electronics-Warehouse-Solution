@@ -23,6 +23,7 @@ namespace Web_Manager_v._2
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
@@ -99,6 +100,8 @@ namespace Web_Manager_v._2
             }
             app.UseHttpsRedirection();
 
+            PictureProcessor.GetPaths();
+            
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
@@ -112,6 +115,7 @@ namespace Web_Manager_v._2
                 Path.Combine(env.ContentRootPath, PictureProcessor.profileAbsolutePath)),
                 RequestPath = "/profiles"
             });
+
 
             app.UseStaticFiles(new StaticFileOptions
             {

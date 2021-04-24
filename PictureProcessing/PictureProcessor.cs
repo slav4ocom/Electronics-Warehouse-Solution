@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,21 +14,34 @@ namespace PictureProcessing
 {
     public class PictureProcessor
     {
+
         public PictureProcessor()
         {
 
         }
 
+        public static void GetPaths()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile($"appsettings.json", true, true)
+                .Build();
+
+            
+            pictureAbsolutePath = config["PictureAbsolutePath"];
+            profileAbsolutePath = config["ProfileAbsolutePath"];
+            homeworksPath = config["HomeworksPath"];
+
+        }
         public static readonly string picturePathWeb = @"..\pictures";
         public static readonly string profilePathWeb = @"..\profiles";
         public static readonly string picturePathConsole = @"..\..\..\..\pictures\";
-        public static readonly string pictureAbsolutePath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/pictures/";
-        public static readonly string profileAbsolutePath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/profiles/";
-        public static readonly string homeworksPath = @"C:/Users/svetoslav12345678198/source/repos/Electronics Warehouse/homeworks/";
+        public static string pictureAbsolutePath;
+        public static string profileAbsolutePath;
+        public static string homeworksPath;
 
         public static async Task SaveFileAsync(IFormFile inputFile, string fileName)
         {
-            if(inputFile.Length > 0)
+            if (inputFile.Length > 0)
             {
                 var fileNameWithPath = @$"{homeworksPath}{fileName}";
 
@@ -59,7 +73,7 @@ namespace PictureProcessing
 
             using (var rawData = Image.FromFile(inputPath))
             {
-                
+
                 using (var image = new Bitmap(rawData))
                 {
                     int width, height;
