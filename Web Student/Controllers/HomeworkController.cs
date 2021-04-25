@@ -81,12 +81,7 @@ namespace Web_Manager.Controllers
             {
                 return RedirectToAction("Index", "Profile");
             }
-            else
-            {
-                return View();
-
-            }
-
+  
             var Lessons = new string[] {
                 "Снимане на културни ценности",
                 "Папарашки снимки",
@@ -106,17 +101,17 @@ namespace Web_Manager.Controllers
 
             var myHomeworks = new List<Homework>();
 
-            myHomeworks.Add(new Homework()
+            myHomeworks.Add(new Homework
             {
                 TaskNotes = "Снимай катедралата !",
-                SolutionNotes = "Ето господине.",
+                SolutionNotes = "Ето господине."
                 
             });
 
             ViewBag.Lessons = Lessons;
             ViewBag.Tasks = Tasks;
             ViewBag.MyHomeworks = myHomeworks;
-            
+
             return View();
         }
 

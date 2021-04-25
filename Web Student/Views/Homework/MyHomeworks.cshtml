@@ -10,7 +10,7 @@
 
 @{
     int cnt = 1;
-    var myHomeworks = ViewBag.myHomeworks;
+    var myHomeworks = ViewBag.MyHomeworks;
     foreach (var homework in myHomeworks)
     {
         <div>@cnt. @homework.TaskNotes <a href="default.asp"><img src="/pictures/file3.png" alt="HTML tutorial" style="width:26px;"></a> <span style="position:relative; left: 150px">@homework.SolutionNotes</span> <button onclick="window.open('/Homework/ApplyHomework')">Качи домашно</button></div>
