@@ -23,7 +23,7 @@
 
                     <div ondblclick="GetRow(@student.Id)" class="col-md-3">
                         @{
-                            var picture = student.PictureName;
+                            var picture = $"{student.UserFK}_small.jpg";
                             if(picture == null || picture == string.Empty)
                             {
                                 picture = "student_small.jpg";

@@ -16,12 +16,12 @@
 Потребителско име : @ViewBag.userData.UserFK
 <br />
 
-<a asp-action="EditMyPicture"><img src="@PictureProcessing.PictureProcessor.profilePathWeb/@ViewBag.userData.PictureName" /></a>
-@ViewBag.userData.PictureName
+<img src="@PictureProcessing.PictureProcessor.profilePathWeb/@(ViewBag.userData.UserFK)_small.jpg" />
+@(ViewBag.userData.UserFK)_small.jpg
 
-
-<form method="post" asp-action="SubmitProfile">
+<form method="post" asp-action="SubmitProfile" enctype="multipart/form-data">
     <input type="hidden" name="id" value="id" />
+    <input type="file" name="file" id="file" />
     <br />
     име: <input type="text" name="fullname" value="@ViewBag.userData.FullName" size="50" />
     <br />

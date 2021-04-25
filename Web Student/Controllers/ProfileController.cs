@@ -51,10 +51,6 @@ namespace Web_Student.Controllers
 
             ViewBag.userData = currentUserData;
 
-            if (currentUserData.PictureName == null || currentUserData.PictureName == string.Empty)
-            {
-                ViewBag.userData.PictureName = "student_small.jpg";
-            }
 
             ViewBag.User = User;
             return View();
@@ -65,7 +61,8 @@ namespace Web_Student.Controllers
             string grade,
             string town,
             string phonenum,
-            string picturename)
+            string picturename,
+            IFormFile file)
         {
             var currentUser = await userManager.GetUserAsync(this.User);
             var studentContext = new StudentDbContext();
@@ -79,7 +76,7 @@ namespace Web_Student.Controllers
                 Town = town,
                 PhoneNum = phonenum,
                 UserFK = currentUser.Id,
-                PictureName = picturename
+                //PictureName = "student_small.jpg"
 
             };
 
@@ -98,9 +95,13 @@ namespace Web_Student.Controllers
                 currentProfile.Grade = grade;
                 currentProfile.Town = town;
                 currentProfile.PhoneNum = phonenum;
-                //currentProfile.PictureName = picturename;
+                //currentProfile.PictureName = $"{currentProfile.UserFK}_small.jpg";
 
-                //studentContext.SaveChanges();
+                if(file != null)
+                {
+                    await SavePictureAsync(file, $"{currentProfile.UserFK}.avatar");
+                }
+
                 await studentContext.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
@@ -185,38 +186,31 @@ namespace Web_Student.Controllers
             }
             else
             {
-                ViewBag.pictureName = profileData.PictureName;
+                ViewBag.pictureName = $"{profileData.UserFK}_small.jpg";
 
             }
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SubmitProfilePicture(IFormFile file)
+        private async Task SavePictureAsync(IFormFile inputFile, string fileName)
         {
-            var studenContext = new StudentDbContext();
-            var myProfile = await _GetCurrentUserProfile(studenContext);
-            //var fileExtension = file.FileName.Split(".").Last();
-            myProfile.PictureName = $"{myProfile.UserFK}_small.jpg";
-            await studenContext.SaveChangesAsync();
-
-            long size = file.Length;
+            long size = inputFile.Length;
 
             string filePathAndName = "";
 
-            if (file.Length > 0)
+            if (inputFile.Length > 0)
             {
-                filePathAndName = @$"{PictureProcessor.profileAbsolutePath}{myProfile.UserFK}.avatar";
+                filePathAndName = @$"{PictureProcessor.profileAbsolutePath}{fileName}";
 
                 using (var stream = new FileStream(filePathAndName, FileMode.Create))
                 {
-                    await file.CopyToAsync(stream);
+                    await inputFile.CopyToAsync(stream);
                 }
             }
 
             PictureProcessor.Resize($"{filePathAndName}");
 
-            return Redirect("/Profile");
+
         }
 
 

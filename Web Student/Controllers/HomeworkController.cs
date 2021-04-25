@@ -23,7 +23,7 @@ namespace Web_Manager.Controllers
 
 
         [Authorize(Roles = "Teacher")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
 
             return View();

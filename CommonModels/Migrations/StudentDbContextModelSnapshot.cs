@@ -61,9 +61,6 @@ namespace CommonModels.Migrations
                     b.Property<string>("PhoneNum")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PictureName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("School")
                         .HasColumnType("nvarchar(max)");
 
