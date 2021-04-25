@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using CommonModels.Models;
 
 namespace Web_Manager.Controllers
 {
@@ -23,9 +24,8 @@ namespace Web_Manager.Controllers
 
 
         [Authorize(Roles = "Teacher")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
             return View();
         }
         public IActionResult AddHomework()
@@ -65,8 +65,28 @@ namespace Web_Manager.Controllers
         }
 
 
-        public IActionResult MyHomeworks()
+        public async Task<IActionResult> MyHomeworks()
         {
+            var currentUser = await userManager.GetUserAsync(this.User);
+            var myContext = new StudentDbContext();
+            UserProfile currentUserData = null;
+            if (currentUser != null)
+            {
+                currentUserData = myContext.UserProfiles.FirstOrDefault(p => p.UserFK == currentUser.Id);
+
+            }
+
+
+            if (currentUserData == null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Profile");
+            }
+            else
+            {
+                return View();
+
+            }
+
             var Lessons = new string[] {
                 "Снимане на културни ценности",
                 "Папарашки снимки",

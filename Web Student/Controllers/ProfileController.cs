@@ -51,6 +51,16 @@ namespace Web_Student.Controllers
 
             ViewBag.userData = currentUserData;
 
+            if (System.IO.File.Exists($"{PictureProcessor.profileAbsolutePath}{currentUserData.UserFK}_small.jpg"))
+            {
+                ViewBag.picture = $"{currentUserData.UserFK}_small.jpg";
+            }
+            else
+            {
+                ViewBag.picture = "student_small.jpg";
+
+            }
+
 
             ViewBag.User = User;
             return View();
@@ -97,7 +107,7 @@ namespace Web_Student.Controllers
                 currentProfile.PhoneNum = phonenum;
                 //currentProfile.PictureName = $"{currentProfile.UserFK}_small.jpg";
 
-                if(file != null)
+                if (file != null)
                 {
                     await SavePictureAsync(file, $"{currentProfile.UserFK}.avatar");
                 }
@@ -180,7 +190,8 @@ namespace Web_Student.Controllers
         {
             var studentContext = new StudentDbContext();
             var profileData = await _GetCurrentUserProfile(studentContext);
-            if (profileData == null)
+            if (profileData == null
+                || System.IO.File.Exists($"{PictureProcessor.profileAbsolutePath}{profileData.UserFK}_small.jpg") == false)
             {
                 ViewBag.PictureName = "student_small.jpg";
             }
