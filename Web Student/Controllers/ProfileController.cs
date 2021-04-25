@@ -70,7 +70,7 @@ namespace Web_Student.Controllers
             var currentUser = await userManager.GetUserAsync(this.User);
             var studentContext = new StudentDbContext();
             var currentProfile = await _GetCurrentUserProfile(studentContext);
-        
+
             var newProfile = new UserProfile()
             {
                 FullName = fullname,
@@ -179,7 +179,15 @@ namespace Web_Student.Controllers
         {
             var studentContext = new StudentDbContext();
             var profileData = await _GetCurrentUserProfile(studentContext);
-            ViewBag.profileData = profileData;
+            if (profileData == null)
+            {
+                ViewBag.PictureName = "student_small.jpg";
+            }
+            else
+            {
+                ViewBag.pictureName = profileData.PictureName;
+
+            }
             return View();
         }
 
