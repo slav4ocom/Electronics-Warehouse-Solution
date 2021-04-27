@@ -24,7 +24,7 @@
         foreach (var homework in myHomeworks)
         {
             <tr>
-                <td>Id: @(homework.Id) @homework.Lection</td>
+                <td>@homework.Lection</td>
                 <td>
                     @homework.TaskNotes
                     <a href="../homeworks/@(ViewBag.UserFK)/@(homework.TaskPicture)">
@@ -33,14 +33,14 @@
                 </td>
                 <td>
                     @homework.SolutionNotes
-                    <button onclick="window.open('/Homework/ApplyHomework')">Качи домашно</button>
+                    <button onclick="window.open('/Homework/ApplyHomework?id=@(homework.Id)')">Качи домашно</button>
                     @{
                         if (homework.SolutionPicture != null)
                         {
                             <a href="../homeworks/@(ViewBag.UserFK)/@(homework.SolutionPicture)">
                                 <img src="../pictures/fileicon.jpg" style="width:40px" />
                             </a>
-
+                            
                         }
                         else
                         {

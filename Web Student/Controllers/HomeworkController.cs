@@ -50,8 +50,11 @@ namespace Web_Manager.Controllers
             ViewData["Id"] = id;
             return View();
         }
-        public async Task<IActionResult> SubmitMyHomework(IFormFile file, string notes)
+        public async Task<IActionResult> SubmitMyHomework(IFormFile file, string notes, int id)
         {
+            var myContext = new StudentDbContext();
+            var myHomework = myContext.Homeworks.FirstOrDefault(n => n.Id == id);
+
             var currentUser = await userManager.GetUserAsync(this.User);
 
             if (Directory.Exists($"{PictureProcessor.homeworksPath}{currentUser.Id}") == false)
@@ -60,7 +63,11 @@ namespace Web_Manager.Controllers
             }
 
             await PictureProcessor.SaveFileAsync(file, $"{currentUser.Id}/{file.FileName}");
-        
+
+            myHomework.SolutionPicture = file.FileName;
+            myHomework.SolutionNotes = notes;
+            await myContext.SaveChangesAsync();
+            
             return View();
         }
 
@@ -91,8 +98,9 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public IActionResult ApplyHomework()
+        public IActionResult ApplyHomework(string id)
         {
+            ViewBag.HomeworkId = id;
             return View();
         }
 

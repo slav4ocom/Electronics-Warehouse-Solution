@@ -1,5 +1,5 @@
-﻿homework Id: 
-<form method="post" asp-action="SubmitMyHomework" enctype="multipart/form-data">
+﻿<form method="post" asp-action="SubmitMyHomework" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="@ViewBag.HomeworkId" />
     <input type="file" name="file" /> решение (снимка или файл)
     <br />
     <br />
