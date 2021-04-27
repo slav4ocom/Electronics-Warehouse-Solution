@@ -24,7 +24,7 @@ namespace Web_Manager.Controllers
 
 
         [Authorize(Roles = "Teacher")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -81,36 +81,12 @@ namespace Web_Manager.Controllers
             {
                 return RedirectToAction("Index", "Profile");
             }
-  
-            var Lessons = new string[] {
-                "Снимане на културни ценности",
-                "Папарашки снимки",
-                "Ограждане на кръгчета",
-                "Поезия",
-                "Природни снимки"
-            };
-
-            var Tasks = new string[] {
-                "Снимай патриаршията !",
-                "Снимай Марийка под гащите.",
-                "Загради квадратчетата с кръгчета",
-                "Напиши стихотворение за птичките",
-                "Направи снимка на небето"
-            };
-
 
             var myHomeworks = new List<Homework>();
 
-            myHomeworks.Add(new Homework
-            {
-                TaskNotes = "Снимай катедралата !",
-                SolutionNotes = "Ето господине."
-                
-            });
-
-            ViewBag.Lessons = Lessons;
-            ViewBag.Tasks = Tasks;
+            myHomeworks = myContext.Homeworks.Where(n => n.UserFk == currentUserData.UserFK).ToList();
             ViewBag.MyHomeworks = myHomeworks;
+            ViewBag.UserFK = currentUserData.UserFK;
 
             return View();
         }

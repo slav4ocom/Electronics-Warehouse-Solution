@@ -9,7 +9,7 @@ namespace CommonModels
     public class Homework
     {
         public int Id { get; private set; }
-        //public int TaskId { get; set; }
+        public string Lection { get; set; }
         public string TaskPicture { get; set; }
         public string TaskNotes { get; set; }
         public string SolutionPicture { get; set; }

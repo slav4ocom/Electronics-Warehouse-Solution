@@ -25,6 +25,9 @@ namespace CommonModels.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Lection")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SolutionNotes")
                         .HasColumnType("nvarchar(max)");
 

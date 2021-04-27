@@ -2,22 +2,57 @@
     //ViewData["Tasks"] = "Да се снима патриаршията";
 }
 <h2>Моите домашни</h2>
-
-<br />
-<span>Занятие:</span> <span style="position:relative; left: 200px;">Задача за домашно:</span> <span style="position:relative; left: 400px;">Решение:</span>
-<br />
-
-
-@{
-    int cnt = 1;
-    var myHomeworks = ViewBag.MyHomeworks;
-    foreach (var homework in myHomeworks)
-    {
-        <div>@cnt. @homework.TaskNotes <a href="default.asp"><img src="/pictures/file3.png" alt="HTML tutorial" style="width:26px;"></a> <span style="position:relative; left: 150px">@homework.SolutionNotes</span> <button onclick="window.open('/Homework/ApplyHomework')">Качи домашно</button></div>
-        
-        cnt++;
+<style>
+    table, th, td {
+        border: 1px solid black;
+        padding: 10px;
     }
-}
+</style>
 
+
+<table style="width:100%">
+    <tr>
+        <th>Занятие:</th>
+        <th>Задача за домашно:</th>
+        <th>Решение:</th>
+    </tr>
+
+
+    @{
+        int cnt = 1;
+        var myHomeworks = ViewBag.MyHomeworks;
+        foreach (var homework in myHomeworks)
+        {
+            <tr>
+                <td>Id: @(homework.Id) @homework.Lection</td>
+                <td>
+                    @homework.TaskNotes
+                    <a href="../homeworks/@(ViewBag.UserFK)/@(homework.TaskPicture)">
+                        <img src="../pictures/fileicon.jpg" style="width:40px" />
+                    </a>
+                </td>
+                <td>
+                    @homework.SolutionNotes
+                    <button onclick="window.open('/Homework/ApplyHomework')">Качи домашно</button>
+                    @{
+                        if (homework.SolutionPicture != null)
+                        {
+                            <a href="../homeworks/@(ViewBag.UserFK)/@(homework.SolutionPicture)">
+                                <img src="../pictures/fileicon.jpg" style="width:40px" />
+                            </a>
+
+                        }
+                        else
+                        {
+                            <span>няма домашно</span>
+                        }
+                    }
+                </td>
+            </tr>
+
+            cnt++;
+        }
+    }
+</table>
 <br />
 <br />
