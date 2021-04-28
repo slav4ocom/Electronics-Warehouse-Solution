@@ -1,6 +1,5 @@
-﻿@{
-    //ViewData["Tasks"] = "Да се снима патриаршията";
-}
+﻿
+потребител @ViewBag.Username
 <h2>Моите домашни</h2>
 <style>
     table, th, td {
@@ -27,7 +26,7 @@
                 <td>@homework.Lection</td>
                 <td>
                     @homework.TaskNotes
-                    <a href="../homeworks/@(ViewBag.UserFK)/@(homework.TaskPicture)">
+                    <a href="../homeworks/@(ViewBag.UserFK)/@(homework.TaskPicture)" download>
                         <img src="../pictures/fileicon.jpg" style="width:40px" />
                     </a>
                 </td>
@@ -37,7 +36,7 @@
                     @{
                         if (homework.SolutionPicture != null)
                         {
-                            <a href="../homeworks/@(ViewBag.UserFK)/@(homework.SolutionPicture)">
+                            <a href="../homeworks/@(ViewBag.UserFK)/@(homework.SolutionPicture)" download>
                                 <img src="../pictures/fileicon.jpg" style="width:40px" />
                             </a>
                             

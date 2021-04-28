@@ -67,12 +67,12 @@ namespace Web_Manager.Controllers
             myHomework.SolutionPicture = file.FileName;
             myHomework.SolutionNotes = notes;
             await myContext.SaveChangesAsync();
-            
+
             return View();
         }
 
-
-        public async Task<IActionResult> MyHomeworks()
+        [Route("Homework/MyHomeworks/{userId:int}")]
+        public async Task<IActionResult> MyHomeworks(string userId)
         {
             var currentUser = await userManager.GetUserAsync(this.User);
             var myContext = new StudentDbContext();
@@ -94,6 +94,7 @@ namespace Web_Manager.Controllers
             myHomeworks = myContext.Homeworks.Where(n => n.UserFk == currentUserData.UserFK).ToList();
             ViewBag.MyHomeworks = myHomeworks;
             ViewBag.UserFK = currentUserData.UserFK;
+            ViewBag.Username = userId;
 
             return View();
         }
@@ -103,6 +104,8 @@ namespace Web_Manager.Controllers
             ViewBag.HomeworkId = id;
             return View();
         }
+
+
 
     }
 }

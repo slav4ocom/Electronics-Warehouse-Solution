@@ -1,7 +1,7 @@
 ﻿@{
     var myContext = new CommonModels.StudentDbContext();
     var students = myContext.UserProfiles;
-    
+
 }
 
 <h2>Моите ученици</h2>
@@ -16,25 +16,32 @@
             <div class="row">
                 @foreach (var student in students)
                 {
-
-                    <div ondblclick="GetRow(@student.Id)" class="col-md-3">
+                    var picture = "";
+                    <div class="col-md-3">
                         @{
-                            var picture = $"{student.UserFK}_small.jpg";
-                            if(picture == null || picture == string.Empty)
+                            if (System.IO.File.Exists($"{PictureProcessing.PictureProcessor.profileAbsolutePath}/{student.UserFK}_small.jpg"))
+                            {
+                                picture = $"{student.UserFK}_small.jpg";
+
+                            }
+                            else
                             {
                                 picture = "student_small.jpg";
                             }
+
                         }
-                        <img src="@PictureProcessing.PictureProcessor.profilePathWeb/@picture" />
+                        <a asp-controller="Homeworks" asp-action="MyHomeworks">
+                            <img src="@PictureProcessing.PictureProcessor.profilePathWeb/@picture" />
+                        </a>
                         <br />
                         @student.FullName
                         <br />
                     </div>
 
                 }
-             
-            </div>
-            }
 
+            </div>
         }
+
+    }
 </div>
