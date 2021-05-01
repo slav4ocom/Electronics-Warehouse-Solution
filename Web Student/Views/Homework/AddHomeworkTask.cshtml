@@ -1,0 +1,23 @@
+﻿@ViewBag.UserData.Id
+<br />
+
+
+<form method="post" asp-action="SubmitHomeworkTask" enctype="multipart/form-data">
+    <input type="hidden" name="userfk" value="@ViewBag.UserData.UserFK" />
+    <input type="file" name="file" /> задача (снимка или файл)
+    <br />
+    <br />
+    <input type="text" name="lection" /> занятие
+    <br />
+    <br />
+    <input type="text" name="tasknotes" /> описание на задачата
+    <br />
+    <br />
+    <input type="submit" value="добави" />
+</form>
+
+<form method="post" action="/Homework/MyHomeworks/@(ViewBag.UserData.Id)">
+    <input type="submit" value="обратно" />
+</form>
+<br />
+
