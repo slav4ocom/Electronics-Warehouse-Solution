@@ -30,9 +30,15 @@
                     <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.TaskPicture)" download>
                         <img src="../../pictures/fileicon.jpg" style="width:40px" />
                     </a>
-                    <a href="../Delete/@(homework.Id)">
-                        <img src="../../pictures/trash.png" />
-                    </a>
+                    @{
+                        if (ViewBag.IAmTeacher)
+                        {
+                            <a href="../Delete/@(homework.Id)">
+                                <img src="../../pictures/trash.png" />
+                            </a>
+
+                        }
+                    }
                 </td>
                 <td>
                     @homework.SolutionNotes
@@ -59,7 +65,7 @@
 </table>
 <br />
 <br />
-@if (ViewBag.iAmTeacher == true)
+@if (ViewBag.IAmTeacher == true)
 {
     <form method="post" action="/Homework/AddHomeworkTask/@(ViewBag.UserData.Id)">
         <input type="submit" value="добави домашно" />

@@ -108,12 +108,12 @@ namespace Web_Manager.Controllers
             UserProfile currentUserData = null;
             if (User.IsInRole("Teacher"))
             {
-                ViewBag.iAmTeacher = true;
+                ViewBag.IAmTeacher = true;
 
             }
             else
             {
-                ViewBag.iAmTeacher = false;
+                ViewBag.IAmTeacher = false;
             }
 
             if (currentUser != null)
