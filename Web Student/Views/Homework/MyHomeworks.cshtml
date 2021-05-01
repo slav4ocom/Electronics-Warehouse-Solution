@@ -46,6 +46,8 @@
                     @{
                         if (homework.SolutionPicture != null)
                         {
+
+                            <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;изтегли</span>
                             <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.SolutionPicture)" download>
                                 <img src="../../pictures/fileicon.jpg" style="width:40px" />
                             </a>
@@ -53,7 +55,7 @@
                         }
                         else
                         {
-                            <span>няма домашно</span>
+                            <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; няма домашно</span>
                         }
                     }
                 </td>
