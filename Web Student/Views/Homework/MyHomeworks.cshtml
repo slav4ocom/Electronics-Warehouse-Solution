@@ -1,5 +1,6 @@
-﻿
-потребител @ViewBag.Username
+﻿потребител @ViewBag.UserData.FullName
+<br />
+@ViewBag.UserData.UserFK
 <h2>Моите домашни</h2>
 <style>
     table, th, td {
@@ -26,20 +27,23 @@
                 <td>@homework.Lection</td>
                 <td>
                     @homework.TaskNotes
-                    <a href="../homeworks/@(ViewBag.UserFK)/@(homework.TaskPicture)" download>
-                        <img src="../pictures/fileicon.jpg" style="width:40px" />
+                    <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.TaskPicture)" download>
+                        <img src="../../pictures/fileicon.jpg" style="width:40px" />
+                    </a>
+                    <a href="../Delete/@(homework.Id)">
+                        <img src="../../pictures/trash.png" />
                     </a>
                 </td>
                 <td>
                     @homework.SolutionNotes
-                    <button onclick="window.open('/Homework/ApplyHomework?id=@(homework.Id)')">Качи домашно</button>
+                    <button onclick="window.open('/Homework/ApplyHomework?id=@(homework.Id)')">Качи решение</button>
                     @{
                         if (homework.SolutionPicture != null)
                         {
-                            <a href="../homeworks/@(ViewBag.UserFK)/@(homework.SolutionPicture)" download>
-                                <img src="../pictures/fileicon.jpg" style="width:40px" />
+                            <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.SolutionPicture)" download>
+                                <img src="../../pictures/fileicon.jpg" style="width:40px" />
                             </a>
-                            
+
                         }
                         else
                         {
@@ -55,3 +59,9 @@
 </table>
 <br />
 <br />
+@if (ViewBag.iAmTeacher == true)
+{
+    <form method="post" action="/Homework/AddHomeworkTask/@(ViewBag.UserData.Id)">
+        <input type="submit" value="добави домашно" />
+    </form>
+}

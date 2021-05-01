@@ -28,8 +28,22 @@ namespace Web_Manager.Controllers
         {
             return View();
         }
-        public IActionResult AddHomework()
+
+        [Route("Homework/AddHomeworkTask/{userId:int?}")]
+        public IActionResult AddHomeworkTask(int? userId)
         {
+            var context = new StudentDbContext();
+            var student = context.UserProfiles.FirstOrDefault(p => p.Id == userId);
+
+            if (student != null)
+            {
+                ViewBag.UserData = student;
+
+            }
+            else
+            {
+                ViewBag.UserData = "няма такъв студент";
+            }
             return View();
         }
 
@@ -39,21 +53,35 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public IActionResult DeleteHomework(string id)
+        [Route("Homework/Delete/{homeworkId:int}")]
+        public IActionResult DeleteHomework(int homeworkId)
         {
-            var myContext = new StudentDbContext();
-            var myPart = myContext.Homeworks.FirstOrDefault(n => n.Id == int.Parse(id));
-            myContext.Homeworks.Remove(myPart);
-            myContext.SaveChanges();
-            PictureProcessor.DeletePicture(myPart.SolutionPicture);
+            var context = new StudentDbContext();
+            var homework = context.Homeworks.FirstOrDefault(n => n.Id == homeworkId);
+            var owner = context.UserProfiles.FirstOrDefault(p => p.UserFK == homework.UserFk);
+            context.Homeworks.Remove(homework);
 
-            ViewData["Id"] = id;
-            return View();
+            if (homework.TaskPicture != null)
+            {
+                System.IO.File.Delete($@"{PictureProcessor.homeworksPath}/{homework.UserFk}/{homework.TaskPicture}");
+
+            }
+            if (homework.SolutionPicture != null)
+            {
+                System.IO.File.Delete($@"{PictureProcessor.homeworksPath}/{homework.UserFk}/{homework.SolutionPicture}");
+
+            }
+            context.SaveChanges();
+
+            return Redirect($@"~/Homework/MyHomeworks/{owner.Id}");
         }
-        public async Task<IActionResult> SubmitMyHomework(IFormFile file, string notes, int id)
+        public async Task<IActionResult> SubmitMyHomework(IFormFile file,
+                                                            string tasknotes,
+                                                            string lection,
+                                                            int id)
         {
             var myContext = new StudentDbContext();
-            var myHomework = myContext.Homeworks.FirstOrDefault(n => n.Id == id);
+            var myHomework = new Homework();
 
             var currentUser = await userManager.GetUserAsync(this.User);
 
@@ -64,22 +92,41 @@ namespace Web_Manager.Controllers
 
             await PictureProcessor.SaveFileAsync(file, $"{currentUser.Id}/{file.FileName}");
 
+            myHomework.Lection = lection;
             myHomework.SolutionPicture = file.FileName;
-            myHomework.SolutionNotes = notes;
+            myHomework.SolutionNotes = tasknotes;
             await myContext.SaveChangesAsync();
 
             return View();
         }
 
-        [Route("Homework/MyHomeworks/{userId:int}")]
-        public async Task<IActionResult> MyHomeworks(string userId)
+        [Route("Homework/MyHomeworks/{userId:int?}")]
+        public async Task<IActionResult> MyHomeworks(int? userId)
         {
             var currentUser = await userManager.GetUserAsync(this.User);
             var myContext = new StudentDbContext();
             UserProfile currentUserData = null;
+            if (User.IsInRole("Teacher"))
+            {
+                ViewBag.iAmTeacher = true;
+
+            }
+            else
+            {
+                ViewBag.iAmTeacher = false;
+            }
+
             if (currentUser != null)
             {
-                currentUserData = myContext.UserProfiles.FirstOrDefault(p => p.UserFK == currentUser.Id);
+                if (userId == null)
+                {
+                    currentUserData = myContext.UserProfiles.FirstOrDefault(p => p.UserFK == currentUser.Id);
+
+                }
+                else
+                {
+                    currentUserData = myContext.UserProfiles.FirstOrDefault(p => p.Id == userId);
+                }
 
             }
 
@@ -90,12 +137,9 @@ namespace Web_Manager.Controllers
             }
 
             var myHomeworks = new List<Homework>();
-
             myHomeworks = myContext.Homeworks.Where(n => n.UserFk == currentUserData.UserFK).ToList();
             ViewBag.MyHomeworks = myHomeworks;
-            ViewBag.UserFK = currentUserData.UserFK;
-            ViewBag.Username = userId;
-
+            ViewBag.UserData = currentUserData;
             return View();
         }
 
@@ -105,7 +149,31 @@ namespace Web_Manager.Controllers
             return View();
         }
 
+        public async Task<IActionResult> SubmitHomeworkTask(string userfk,
+                                                            string lection,
+                                                            string tasknotes,
+                                                            IFormFile file)
+        {
+            var context = new StudentDbContext();
+            var owner = context.UserProfiles.FirstOrDefault(p => p.UserFK == userfk);
+            context.Add(new Homework
+            {
+                UserFk = userfk,
+                TaskPicture = file.FileName,
+                TaskNotes = tasknotes,
+                Lection = lection
+            });
 
+            if (Directory.Exists($"{PictureProcessor.homeworksPath}{userfk}") == false)
+            {
+                Directory.CreateDirectory($"{PictureProcessor.homeworksPath}{userfk}");
+            }
+
+            await PictureProcessor.SaveFileAsync(file, $"{userfk}/{file.FileName}");
+
+            await context.SaveChangesAsync();
+            return Redirect($@"~/Homework/MyHomeworks/{owner.Id}");
+        }
 
     }
 }
