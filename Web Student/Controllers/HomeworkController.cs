@@ -136,7 +136,7 @@ namespace Web_Manager.Controllers
                 else
                 {
                     currentUserData = myContext.UserProfiles.FirstOrDefault(p => p.Id == userId);
-                    ViewBag.UserName = $"ученик {currentUserData.FullName}";
+                    ViewBag.UserName = $"ученик {currentUserData.FullName}, клас {currentUserData.Grade} от {currentUserData.School}";
                 }
 
             }

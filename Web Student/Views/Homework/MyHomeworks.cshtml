@@ -11,6 +11,7 @@
 
 <table style="width:100%">
     <tr>
+        <th></th>
         <th>Занятие:</th>
         <th>Задача за домашно:</th>
         <th>Решение:</th>
@@ -23,6 +24,7 @@
         foreach (var homework in myHomeworks)
         {
             <tr>
+                <td>@(cnt)</td>
                 <td>@homework.Lection</td>
                 <td>
                     @homework.TaskNotes
