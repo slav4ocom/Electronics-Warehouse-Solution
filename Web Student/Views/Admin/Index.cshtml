@@ -1,7 +1,7 @@
 ﻿@{
-    var myContext = new CommonModels.StudentDbContext();
-    var students = myContext.UserProfiles;
-
+    //var myContext = new CommonModels.StudentDbContext();
+    //var students = myContext.UserProfiles;
+    var students = ViewBag.StudentProfiles;
 }
 
 <h2>Моите ученици</h2>
@@ -16,22 +16,10 @@
             <div class="row">
                 @foreach (var student in students)
                 {
-                    var picture = "";
                     <div class="col-md-3">
-                        @{
-                            if (System.IO.File.Exists($"{PictureProcessing.PictureProcessor.profileAbsolutePath}/{student.UserFK}_small.jpg"))
-                            {
-                                picture = $"{student.UserFK}_small.jpg";
-
-                            }
-                            else
-                            {
-                                picture = "student_small.jpg";
-                            }
-
-                        }
+                     
                         <a href="Homework/MyHomeworks/@(student.Id)">
-                            <img src="@PictureProcessing.PictureProcessor.profilePathWeb/@picture" />
+                            <img src="@PictureProcessing.PictureProcessor.profilePathWeb/@student.Picture" />
                         </a>
                         <br />
                         @student.FullName

@@ -26,7 +26,15 @@ namespace Web_Manager.Controllers
         [Authorize(Roles = "Teacher")]
         public IActionResult Index()
         {
-            return View();
+            ViewBag.UserData = new UserProfile()
+            {
+
+            };
+            ViewBag.IAmTeacher = true;
+            ViewBag.Title = "Всички домашни";
+            ViewBag.User = "списък";
+            ViewBag.MyHomeworks = new StudentDbContext().Homeworks.ToList();
+            return View("MyHomeworks");
         }
 
         [Route("Homework/AddHomeworkTask/{userId:int?}")]
@@ -109,12 +117,14 @@ namespace Web_Manager.Controllers
             if (User.IsInRole("Teacher"))
             {
                 ViewBag.IAmTeacher = true;
-
+                ViewBag.Title = "Домашни на ученика";
             }
             else
             {
                 ViewBag.IAmTeacher = false;
+                ViewBag.Title = "Моите домашни";
             }
+
 
             if (currentUser != null)
             {
@@ -126,6 +136,7 @@ namespace Web_Manager.Controllers
                 else
                 {
                     currentUserData = myContext.UserProfiles.FirstOrDefault(p => p.Id == userId);
+                    ViewBag.UserName = $"ученик {currentUserData.FullName}";
                 }
 
             }

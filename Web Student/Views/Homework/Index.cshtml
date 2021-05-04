@@ -1,45 +1,13 @@
-﻿@{
-
-    var myContext = new CommonModels.StudentDbContext();
-    //var myContext = new Web_Manager_v._2.Data.ApplicationDbContext();
-
-    var partsList = myContext.Homeworks;
-
-    var currentUser = ViewData["currentUser"];
-}
+﻿
 
 
 <h2>Домашни работи на моите ученици:</h2>
 
-<div>
-    @{
+@{
+    var homeworks = ViewBag.Homeworks;
 
-        {
-
-        <div class="row">
-            @foreach (var part in partsList)
-                {
-
-            <div ondblclick="GetRow(@part.Id)" class="col-md-3">
-
-                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/@PictureProcessing.PictureProcessor.GetSmallName(part.SolutionPicture)" />
-                <br />
-                @part.SolutionPicture
-                <br />
-            </div>
-
-                }
-            <div class="col-md-3">
-                <img src="@PictureProcessing.PictureProcessor.picturePathWeb/new.jpg" onclick="window.open('/Homework/AddHomework')">
-            </div>
-        </div>
-        }
-
-        <script>
-            function GetRow(partId) {
-                window.open("Homework/Edit?id=" + partId);
-            }
-        </script>
-
+    foreach (var homework in homeworks)
+    {
+        <div>@(homework.Lection)</div>
     }
-</div>
+}

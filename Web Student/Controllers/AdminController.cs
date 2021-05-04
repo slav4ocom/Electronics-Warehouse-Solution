@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using CommonModels;
+using CommonModels.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,10 +24,38 @@ namespace Web_Student.Controllers
 
         public UserManager<IdentityUser> UserMan { get; }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewBag.students = userManager.Users.ToArray();
+            //ViewBag.students = userManager.Users.ToArray();
+            var studentUsers = await userManager.GetUsersInRoleAsync("Student");
+
+            var students = studentUsers
+                .Select(n => GetUserProfile(n))
+                .Where(n => n != null)
+                .ToList();
+
+            students
+                .Where(n => System.IO.File.Exists($"{PictureProcessing.PictureProcessor.profileAbsolutePath}/{n.UserFK}_small.jpg"))
+                .ToList()
+                .ForEach(s => s.Picture = $"{s.UserFK}_small.jpg");
+            
+            students
+                .Where(n => System.IO.File.Exists($"{PictureProcessing.PictureProcessor.profileAbsolutePath}/{n.UserFK}_small.jpg") == false)
+                .ToList()
+                .ForEach(s => s.Picture = $"student_small.jpg");
+
+       
+            ViewBag.StudentProfiles = students;
             return View();
+        }
+
+        private UserProfile GetUserProfile(IdentityUser n)
+        {
+            var context = new StudentDbContext();
+
+            var result = context.UserProfiles.FirstOrDefault(p => p.UserFK == n.Id);
+
+            return result;
         }
     }
 }
