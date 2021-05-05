@@ -44,26 +44,27 @@
                 <td>
                     @homework.SolutionNotes
 
-                    
-                        <form method="post" action="~/Homework/ApplyHomework/@(homework.Id)">
-                            <input type="submit" value="качи решение" />
-                        </form>
-                  
-                    @{
-                        if (homework.SolutionPicture != null)
-                        {
 
-                            <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;изтегли</span>
-                            <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.SolutionPicture)" download>
-                                <img src="../../pictures/fileicon.jpg" style="width:40px" />
-                            </a>
+                    <form method="post" action="~/Homework/ApplyHomework/@(homework.Id)">
+                        <input type="submit" value="качи решение" />
 
+
+                        @{
+                            if (homework.SolutionPicture != null)
+                            {
+
+                                <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;изтегли</span>
+                                <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.SolutionPicture)" download>
+                                    <img src="../../pictures/fileicon.jpg" style="width:40px" />
+                                </a>
+
+                            }
+                            else
+                            {
+                                <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; няма домашно</span>
+                            }
                         }
-                        else
-                        {
-                            <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; няма домашно</span>
-                        }
-                    }
+                    </form>
                 </td>
             </tr>
 
