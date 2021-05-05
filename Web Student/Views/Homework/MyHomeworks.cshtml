@@ -43,7 +43,12 @@
                 </td>
                 <td>
                     @homework.SolutionNotes
-                    <button onclick="window.open('/Homework/ApplyHomework?id=@(homework.Id)')">Качи решение</button>
+
+                    
+                        <form method="post" action="~/Homework/ApplyHomework/@(homework.Id)">
+                            <input type="submit" value="качи решение" />
+                        </form>
+                  
                     @{
                         if (homework.SolutionPicture != null)
                         {

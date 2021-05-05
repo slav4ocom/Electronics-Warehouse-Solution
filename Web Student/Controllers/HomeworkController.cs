@@ -33,8 +33,9 @@ namespace Web_Manager.Controllers
             ViewBag.IAmTeacher = true;
             ViewBag.Title = "Всички домашни";
             ViewBag.User = "списък";
-            ViewBag.MyHomeworks = new StudentDbContext().Homeworks.ToList();
-            return View("MyHomeworks");
+            var homeworks = new StudentDbContext().Homeworks.ToList();
+            ViewBag.MyHomeworks = homeworks;
+            return View();
         }
 
         [Route("Homework/AddHomeworkTask/{userId:int?}")]
@@ -83,13 +84,14 @@ namespace Web_Manager.Controllers
 
             return Redirect($@"~/Homework/MyHomeworks/{owner.Id}");
         }
-        public async Task<IActionResult> SubmitMyHomework(IFormFile file,
+        public async Task<IActionResult> SubmitHomeworkSolution(IFormFile file,
                                                             string tasknotes,
                                                             string lection,
                                                             int id)
         {
             var myContext = new StudentDbContext();
-            var myHomework = new Homework();
+            //var myHomework = new Homework();
+            var myHomework = myContext.Homeworks.FirstOrDefault(h => h.Id == id);
 
             var currentUser = await userManager.GetUserAsync(this.User);
 
@@ -105,7 +107,7 @@ namespace Web_Manager.Controllers
             myHomework.SolutionNotes = tasknotes;
             await myContext.SaveChangesAsync();
 
-            return View();
+            return RedirectToAction("MyHomeworks");
         }
 
         [Route("Homework/MyHomeworks/{userId:int?}")]
@@ -154,7 +156,7 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public IActionResult ApplyHomework(string id)
+        public IActionResult ApplyHomework(int? id)
         {
             ViewBag.HomeworkId = id;
             return View();

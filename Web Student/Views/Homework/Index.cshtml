@@ -1,13 +1,66 @@
-﻿
+﻿@{
+    var homeworks = ViewBag.MyHomeworks;
+}
 
 
 <h2>Домашни работи на моите ученици:</h2>
-
-@{
-    var homeworks = ViewBag.Homeworks;
-
-    foreach (var homework in homeworks)
-    {
-        <div>@(homework.Lection)</div>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        padding: 10px;
     }
-}
+</style>
+
+
+<table style="width:100%">
+    <tr>
+        <th></th>
+        <th>Занятие:</th>
+        <th>Ученик:</th>
+        <th>Задача за домашно:</th>
+        <th>Решение:</th>
+    </tr>
+
+    @{
+        int cnt = 1;
+
+        foreach (var homework in homeworks)
+        {
+            <tr>
+                <td>@(cnt)</td>
+                <td>@(homework.Lection)</td>
+                <td></td>
+                <td>
+                    @homework.TaskNotes
+                    <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.TaskPicture)" download>
+                        <img src="../../pictures/fileicon.jpg" style="width:40px" />
+                    </a>
+                    <a href="../Delete/@(homework.Id)">
+                        <img src="../../pictures/trash.png" />
+                    </a>
+
+                </td>
+                <td>
+                    @{
+                        if (homework.SolutionPicture != null)
+                        {
+
+                            <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;изтегли</span>
+                            <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.SolutionPicture)" download>
+                                <img src="../../pictures/fileicon.jpg" style="width:40px" />
+                            </a>
+
+                        }
+                        else
+                        {
+                            <span>няма решение</span>
+                        }
+                    }
+
+                </td>
+            </tr>
+            cnt++;
+        }
+    }
+
+</table>
