@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace CommonModels
@@ -15,5 +16,11 @@ namespace CommonModels
         public string SolutionPicture { get; set; }
         public string SolutionNotes { get; set; }
         public string UserFk { get; set; }
+
+        [NotMapped]
+        public string UserPicture { get; set; }
+
+        [NotMapped]
+        public string UserName { get; set; }
     }
 }
