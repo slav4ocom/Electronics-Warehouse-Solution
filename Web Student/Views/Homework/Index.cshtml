@@ -29,10 +29,14 @@
             <tr>
                 <td>@(cnt)</td>
                 <td>@(homework.Lection)</td>
-                <td></td>
+                <td>
+                    <a href="~/Homework/MyHomeworks/@(homework.UserId)">
+                        @(homework.UserName)&nbsp; &nbsp;<img src="~/profiles/@(homework.UserPicture)" width="20" />
+                    </a>
+                </td>
                 <td>
                     @homework.TaskNotes
-                    <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.TaskPicture)" download>
+                    <a href="../../homeworks/@(homework.UserFk)/@(homework.TaskPicture)" download>
                         <img src="../../pictures/fileicon.jpg" style="width:40px" />
                     </a>
                     <a href="../Delete/@(homework.Id)">
@@ -46,7 +50,7 @@
                         {
 
                             <span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;изтегли</span>
-                            <a href="../../homeworks/@(ViewBag.UserData.UserFK)/@(homework.SolutionPicture)" download>
+                            <a href="../../homeworks/@(homework.UserFk)/@(homework.SolutionPicture)" download>
                                 <img src="../../pictures/fileicon.jpg" style="width:40px" />
                             </a>
 

@@ -26,15 +26,17 @@ namespace Web_Manager.Controllers
         [Authorize(Roles = "Teacher")]
         public IActionResult Index()
         {
-            ViewBag.UserData = new UserProfile()
-            {
-
-            };
             ViewBag.IAmTeacher = true;
             ViewBag.Title = "Всички домашни";
             ViewBag.User = "списък";
-            var homeworks = new StudentDbContext().Homeworks.ToList();
+            var context = new StudentDbContext();
+            var homeworks = context.Homeworks.ToList();
+            var students = context.UserProfiles.ToList();
+            
             ViewBag.MyHomeworks = homeworks;
+            homeworks.ForEach(h => h.UserName = students.FirstOrDefault(s => s.UserFK == h.UserFk).FullName);
+            homeworks.ForEach(h => h.UserId = students.FirstOrDefault(s => s.UserFK == h.UserFk).Id);
+            homeworks.ForEach(h => h.UserPicture = $"{students.FirstOrDefault(s => s.UserFK == h.UserFk).UserFK}_small.jpg");
             return View();
         }
 
@@ -56,12 +58,7 @@ namespace Web_Manager.Controllers
             return View();
         }
 
-        public IActionResult Edit(string id)
-        {
-            ViewData["Id"] = id;
-            return View();
-        }
-
+       
         [Route("Homework/Delete/{homeworkId:int}")]
         public IActionResult DeleteHomework(int homeworkId)
         {

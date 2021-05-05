@@ -22,5 +22,8 @@ namespace CommonModels
 
         [NotMapped]
         public string UserName { get; set; }
+        
+        [NotMapped]
+        public int UserId { get; set; }
     }
 }
